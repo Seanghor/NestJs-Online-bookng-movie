@@ -18,6 +18,7 @@ export class MovieEntity implements Movie {
     constructor(partial: Partial<MovieEntity>) {
         Object.assign(this, partial);
     }
+    opening_date: Date;
 }
 
 
@@ -33,6 +34,7 @@ export class MovieImportEntity {
     rating: number;
     price: number;
     status: MovieStatusEnum;
+    opening_date: Date | string;
     constructor(partial: Partial<MovieImportEntity>) {
         Object.assign(this, partial);
     }

@@ -96,37 +96,36 @@ async function main() {
     // create 3 movie:
     const movieList = [
         {
-            title: "Three Kingdoms",
+            title: "The Nun 2",
             tmovieTypeype: "ACTION",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
-            description: "description",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20231311021333.jpg",
+            trailer: "https://www.youtube.com/embed/pA3KLOAb-I8?autoplay=1&mute=1",
             duration_min: 70,
             rating: 6.4,
             price: 7.5,
-            status: "COMING_SOON"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-20"
         },
         {
-            title: "Fast and Furious 7",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
+            title: "Blue Beetle",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20232714042700.jpg",
+            trailer: "https://www.youtube.com/embed/pA3KLOAb-I8?autoplay=1&mute=1",
             tmovieTypeype: "ACTION",
-            description: "description",
             duration_min: 70,
             rating: 6.4,
             price: 7.5,
-            status: "NOW_SHOWING"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-20"
         },
         {
-            title: "365days",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
-            tmovieTypeype: "ACTION",
-            description: "description",
+            title: "Beau Is Afraid",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20234413104424.jpg",
+            trailer: "https://www.youtube.com/embed/jN4b3qcFEd4?autoplay=1&mute=1",
+            tmovieTypeype: "HORROR",
             duration_min: 120,
             rating: 6.4,
-            price: 7.5,
-            status: "TOP_MOVIE"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-23"
         },
     ]
 
@@ -137,10 +136,12 @@ async function main() {
                 title: movieList[i].title,
                 image: movieList[i].image,
                 trailer: movieList[i].trailer,
-                description: "description",
+                sub_title: 'EN/KH',
+                description: "A sequel to record-breaking Korean action film The Roundup.",
                 duration_min: 120,
                 rating: 6.4,
                 price: 7.5,
+                opening_date: '2023-09-20T00:00:00.000Z',
                 status: movieList[i].status as MovieStatusEnum
             }
         })

@@ -30,6 +30,9 @@ export class CreateMovieDto {
     price: number
 
     @IsNotEmpty()
+    opening_date: string | Date | null
+
+    @IsNotEmpty()
     @IsEnum(MovieStatusEnum)
     status: MovieStatusEnum
 }

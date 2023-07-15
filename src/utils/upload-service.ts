@@ -3,7 +3,7 @@ import * as path from 'path';
 import Excel from 'exceljs';
 import { MovieStatusEnum, MovieTypeEnum } from '@prisma/client';
 import { Workbook } from 'exceljs';
-import {  MovieImportEntity } from 'src/modules/movie/entities/movie.entity';
+import { MovieImportEntity } from 'src/modules/movie/entities/movie.entity';
 // const filePath = path.resolve('.movie.xlsx');
 // const filePath = path.resolve(__dirname, 'movie.xlsx');
 // const filePath = path.resolve(__dirname, '../utils/movie.xlsx');
@@ -104,6 +104,7 @@ export class ExcelService {
           movieType: getCellValue(row, 9) as MovieTypeEnum,
           trailer: trailerObject?.hyperlink || imageObject?.text,
           sub_title: getCellValue(row, 11).toString(),
+          opening_date: new Date(getCellValue(row, 12).toString())
         } as MovieImportEntity
       })
   }

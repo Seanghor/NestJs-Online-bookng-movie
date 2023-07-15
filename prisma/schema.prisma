@@ -39,8 +39,10 @@ enum MovieStatusEnum {
 enum MovieTypeEnum {
   ACTION
   COMEDY
-  HORRO
+  HORROR
   DRAMA
+  ANIMATION
+  ADVANTURE
 }
 
 enum ScreeningStatusEnum {
@@ -91,6 +93,7 @@ model Movie {
   movieType    MovieTypeEnum   @default(ACTION)
   description  String?
   duration_min Int
+  opening_date DateTime?
   rating       Float
   price        Float?
   status       MovieStatusEnum

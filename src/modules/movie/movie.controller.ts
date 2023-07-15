@@ -33,6 +33,8 @@ export class MovieController {
     if (!createMovieDto.rating) throw new BadRequestException('Rating is required')
     if (!createMovieDto.price) throw new BadRequestException('Price is required')
     if (!createMovieDto.status) throw new BadRequestException('Status is required')
+    if(!createMovieDto.opening_date) throw new BadRequestException('Opening date is required')
+    createMovieDto.opening_date = new Date(createMovieDto.opening_date)
 
     const movie = await this.movieService.createMovie(createMovieDto);
     return new MovieEntity(movie)

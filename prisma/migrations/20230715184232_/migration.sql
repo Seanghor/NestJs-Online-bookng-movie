@@ -11,7 +11,7 @@ CREATE TYPE "SeatStatusEnum" AS ENUM ('AVAILABLE', 'SELECTED', 'OWNED');
 CREATE TYPE "MovieStatusEnum" AS ENUM ('COMING_SOON', 'NOW_SHOWING', 'TOP_MOVIE');
 
 -- CreateEnum
-CREATE TYPE "MovieTypeEnum" AS ENUM ('ACTION', 'COMEDY', 'HORRO', 'DRAMA');
+CREATE TYPE "MovieTypeEnum" AS ENUM ('ACTION', 'COMEDY', 'HORROR', 'DRAMA', 'ANIMATION', 'ADVANTURE');
 
 -- CreateEnum
 CREATE TYPE "ScreeningStatusEnum" AS ENUM ('COMING_SOON', 'NOW_SHOWING', 'END_SHOWING');
@@ -22,6 +22,7 @@ CREATE TABLE "Campus" (
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
+    "map" TEXT,
 
     CONSTRAINT "Campus_pkey" PRIMARY KEY ("id")
 );
