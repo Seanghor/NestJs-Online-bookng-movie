@@ -32,6 +32,9 @@ export class CreateMovieDto {
     @IsNotEmpty()
     opening_date: string | Date | null
 
+    isTop: boolean
+    isDisable: boolean
+
     @IsNotEmpty()
     @IsEnum(MovieStatusEnum)
     status: MovieStatusEnum

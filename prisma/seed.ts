@@ -161,16 +161,42 @@ async function main() {
         console.table({ auditorium })
     }
 
-    // create screening at cenima1:
+    // create 3 screening for movie1 at cenima1:
     for (let i = 1; i < 3; i++) {
         const screening = await prisma.screening.create({
             data: {
                 movieId: i,
                 auditoriumId: i,
                 campusId: 1,
-                date_show: "2023-06-30T00:00:00.000Z",
+                date_show: "2023-07-30T00:00:00.000Z",
                 duration_min: 70,
                 startTime: "1970-01-01T13:10:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening2 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 1,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T14:30:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening3 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 1,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T16:10:00.000Z",
                 endTime: "1970-01-01T14:20:00.000Z",
                 status: "COMING_SOON",
                 isAvailable: true,
@@ -184,96 +210,190 @@ async function main() {
         })
         const maxSeat = auditorium.num_seats
         for (let j = 1; j <= maxSeat; j++) {
-            const seats = await prisma.seat.create({
+            // create seat for screen1
+            await prisma.seat.create({
                 data: {
                     customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
                     auditoriumId: auditorium.id,
                     screeningId: screening.id
                 }
             })
-        }
 
-        // const seat = await prisma.seat.create({
-
-        // })
-        console.table({ screening })
-    }
-
-    // create screening at cenima2:
-    for (let i = 1; i < 3; i++) {
-        const screening2 = await prisma.screening.create({
-            data: {
-                movieId: i,
-                auditoriumId: i + 3,
-                campusId: 2,
-                date_show: "2023-06-30T00:00:00.000Z",
-                duration_min: 70,
-                startTime: "1970-01-01T13:10:00.000Z",
-                endTime: "1970-01-01T14:20:00.000Z",
-                status: "COMING_SOON",
-                isAvailable: true,
-            }
-        })
-
-        const auditorium = await prisma.auditorium.findUnique({
-            where: {
-                id: screening2.auditoriumId
-            }
-        })
-        const maxSeat = auditorium.num_seats
-        for (let j = 1; j <= maxSeat; j++) {
-            const seats = await prisma.seat.create({
+            // create seat for screen2
+            await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `D-${j}` : i == 2 ? `E-${j}` : `F-${j}`,
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
                     auditoriumId: auditorium.id,
                     screeningId: screening2.id
                 }
             })
-        }
 
-        // const seat = await prisma.seat.create({
-
-        // })
-        console.table({ screening2 })
-    }
-
-    // create screening at cenima3:
-    for (let i = 1; i < 3; i++) {
-        const screening3 = await prisma.screening.create({
-            data: {
-                movieId: i,
-                auditoriumId: i + 6,
-                campusId: 3,
-                date_show: "2023-06-30T00:00:00.000Z",
-                duration_min: 70,
-                startTime: "1970-01-01T13:10:00.000Z",
-                endTime: "1970-01-01T14:20:00.000Z",
-                status: "COMING_SOON",
-                isAvailable: true,
-            }
-        })
-
-        const auditorium = await prisma.auditorium.findUnique({
-            where: {
-                id: screening3.auditoriumId
-            }
-        })
-        const maxSeat = auditorium.num_seats
-        for (let j = 1; j <= maxSeat; j++) {
-            const seats = await prisma.seat.create({
+            // create seat for screen3
+            await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `G-${j}` : i == 2 ? `H-${j}` : `I-${j}`,
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
                     auditoriumId: auditorium.id,
                     screeningId: screening3.id
                 }
             })
         }
-
-        // const seat = await prisma.seat.create({
-
-        // })
-        console.table({ screening3 })
+        console.table({ screening })
     }
+    for (let i = 1; i < 3; i++) {
+        const screening = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 2,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T13:10:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening2 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 2,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T14:30:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening3 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 2,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T16:10:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+
+        const auditorium = await prisma.auditorium.findUnique({
+            where: {
+                id: screening.auditoriumId
+            }
+        })
+        const maxSeat = auditorium.num_seats
+        for (let j = 1; j <= maxSeat; j++) {
+            // create seat for screen1
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening.id
+                }
+            })
+
+            // create seat for screen2
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening2.id
+                }
+            })
+
+            // create seat for screen3
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening3.id
+                }
+            })
+        }
+        console.table({ screening })
+    }
+    for (let i = 1; i < 3; i++) {
+        const screening = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 3,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T13:10:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening2 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 3,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T14:30:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+        const screening3 = await prisma.screening.create({
+            data: {
+                movieId: i,
+                auditoriumId: i,
+                campusId: 3,
+                date_show: "2023-07-30T00:00:00.000Z",
+                duration_min: 70,
+                startTime: "1970-01-01T16:10:00.000Z",
+                endTime: "1970-01-01T14:20:00.000Z",
+                status: "COMING_SOON",
+                isAvailable: true,
+            }
+        })
+
+        const auditorium = await prisma.auditorium.findUnique({
+            where: {
+                id: screening.auditoriumId
+            }
+        })
+        const maxSeat = auditorium.num_seats
+        for (let j = 1; j <= maxSeat; j++) {
+            // create seat for screen1
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening.id
+                }
+            })
+
+            // create seat for screen2
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening2.id
+                }
+            })
+
+            // create seat for screen3
+            await prisma.seat.create({
+                data: {
+                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    auditoriumId: auditorium.id,
+                    screeningId: screening3.id
+                }
+            })
+        }
+        console.table({ screening })
+    }
+
     return admin
 }
 

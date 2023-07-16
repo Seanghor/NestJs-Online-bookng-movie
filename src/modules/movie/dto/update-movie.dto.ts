@@ -28,6 +28,9 @@ export class UpdateMovieDto extends PartialType(CreateMovieDto) {
     @IsNotEmpty()
     price: number
 
+    isTop: boolean
+    isDisable: boolean
+
     @IsNotEmpty()
     @IsEnum(MovieStatusEnum)
     status: MovieStatusEnum

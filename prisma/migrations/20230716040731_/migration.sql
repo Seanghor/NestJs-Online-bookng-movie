@@ -8,7 +8,7 @@ CREATE TYPE "GenderEnum" AS ENUM ('MALE', 'FEMALE');
 CREATE TYPE "SeatStatusEnum" AS ENUM ('AVAILABLE', 'SELECTED', 'OWNED');
 
 -- CreateEnum
-CREATE TYPE "MovieStatusEnum" AS ENUM ('COMING_SOON', 'NOW_SHOWING', 'TOP_MOVIE');
+CREATE TYPE "MovieStatusEnum" AS ENUM ('COMING_SOON', 'NOW_SHOWING');
 
 -- CreateEnum
 CREATE TYPE "MovieTypeEnum" AS ENUM ('ACTION', 'COMEDY', 'HORROR', 'DRAMA', 'ANIMATION', 'ADVANTURE');
@@ -64,9 +64,12 @@ CREATE TABLE "Movie" (
     "movieType" "MovieTypeEnum" NOT NULL DEFAULT 'ACTION',
     "description" TEXT,
     "duration_min" INTEGER NOT NULL,
+    "opening_date" TIMESTAMP(3),
     "rating" DOUBLE PRECISION NOT NULL,
     "price" DOUBLE PRECISION,
     "status" "MovieStatusEnum" NOT NULL,
+    "isTop" BOOLEAN NOT NULL DEFAULT true,
+    "isDisable" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 

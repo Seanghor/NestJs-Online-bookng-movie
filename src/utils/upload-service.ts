@@ -92,6 +92,13 @@ export class ExcelService {
       .map((row): MovieImportEntity => {
         const imageObject: any = row.getCell(3).value;
         const trailerObject: any = row.getCell(10).value
+
+        // handle boolean
+        const isTopCellValue = row.getCell(13).value;
+        const isDisableCellValue = row.getCell(14).value;
+        const isTop = typeof isTopCellValue === 'boolean' ? isTopCellValue : isTopCellValue === 'true';
+        const isDisable = typeof isDisableCellValue === 'boolean' ? isDisableCellValue : isDisableCellValue === 'true';
+
         return {
           // id: Number(getCellValue(row, 1)),
           title: getCellValue(row, 2).toString().toLocaleLowerCase(),
@@ -104,7 +111,9 @@ export class ExcelService {
           movieType: getCellValue(row, 9) as MovieTypeEnum,
           trailer: trailerObject?.hyperlink || imageObject?.text,
           sub_title: getCellValue(row, 11).toString(),
-          opening_date: new Date(getCellValue(row, 12).toString())
+          opening_date: new Date(getCellValue(row, 12).toString()),
+          isTop: isTop,
+          isDisable: isDisable
         } as MovieImportEntity
       })
   }

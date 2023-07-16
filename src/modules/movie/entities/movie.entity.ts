@@ -18,6 +18,8 @@ export class MovieEntity implements Movie {
     constructor(partial: Partial<MovieEntity>) {
         Object.assign(this, partial);
     }
+    isTop: boolean;
+    isDisable: boolean;
     opening_date: Date;
 }
 
@@ -38,4 +40,6 @@ export class MovieImportEntity {
     constructor(partial: Partial<MovieImportEntity>) {
         Object.assign(this, partial);
     }
+    isTop: boolean;
+    isDisable: boolean;
 }

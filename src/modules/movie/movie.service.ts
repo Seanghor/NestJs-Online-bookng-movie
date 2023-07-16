@@ -34,8 +34,8 @@ export class MovieService {
   }
 
   // findMany
-  async findAllMovie(title?: string, status?: MovieStatusEnum, onscreening?: Boolean) {
-    if (title && !status && !onscreening) {
+  async findAllMovie(title?: string, status?: MovieStatusEnum, onscreening?: boolean, isTop?: boolean) {
+    if (title && !status && !onscreening && !isTop) {
       const titleLower = title.toLocaleLowerCase()
       const res = await this.prisma.movie.findMany({
         where: {
@@ -44,7 +44,7 @@ export class MovieService {
       })
       return res
     }
-    else if (!title && status && !onscreening) {
+    else if (!title && status && !onscreening && !isTop) {
       const res = await this.prisma.movie.findMany({
         where: {
           status: status.toLocaleUpperCase() as MovieStatusEnum
@@ -52,7 +52,7 @@ export class MovieService {
       })
       return res
     }
-    else if (title && status && !onscreening) {
+    else if (title && status && !onscreening && !isTop) {
       const titleLower = title.toLocaleLowerCase()
       const res = await this.prisma.movie.findMany({
         where: {
@@ -64,7 +64,7 @@ export class MovieService {
       })
       return res
     }
-    else if (!title && !status && onscreening === true) {
+    else if (!title && !status && onscreening === true && !isTop) {
       console.log("onscreening value:", onscreening);
 
       const res = await this.prisma.movie.findMany({
@@ -78,8 +78,16 @@ export class MovieService {
       })
       return res
     }
+    else if (!title && !status && !onscreening && isTop) {
+      const res = await this.prisma.movie.findMany({
+        where: {
+          isTop
+        }
+      })
+      return res
+    }
     console.log("dfsfsfsf");
-    
+
     const res = await this.prisma.movie.findMany()
     return res
   }

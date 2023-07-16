@@ -33,7 +33,7 @@ export class MovieController {
     if (!createMovieDto.rating) throw new BadRequestException('Rating is required')
     if (!createMovieDto.price) throw new BadRequestException('Price is required')
     if (!createMovieDto.status) throw new BadRequestException('Status is required')
-    if(!createMovieDto.opening_date) throw new BadRequestException('Opening date is required')
+    if (!createMovieDto.opening_date) throw new BadRequestException('Opening date is required')
     createMovieDto.opening_date = new Date(createMovieDto.opening_date)
 
     const movie = await this.movieService.createMovie(createMovieDto);
@@ -43,15 +43,18 @@ export class MovieController {
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  async findAllMovies(@Query('title') title?: string, @Query('status') status?: MovieStatusEnum, @Query('onscreening') onscreening?: string) {
+  async findAllMovies(@Query('title') title?: string, @Query('status') status?: MovieStatusEnum, @Query('onscreening') onscreening?: string, @Query('isTop') isTop?: string) {
     if (status && !Object.values(MovieStatusEnum).includes(status.toLocaleUpperCase() as MovieStatusEnum)) {
       throw new BadRequestException('Status not valid')
     }
 
     // convert string to Boolean
-    const bol = onscreening ? JSON.parse(onscreening) : false
+    const isOnScreening = onscreening ? JSON.parse(onscreening) : false
+    const isTopMovie = isTop ? JSON.parse(isTop) : false
+    console.log("isOnScreening:", isOnScreening);
+    console.log("isTop:", isTopMovie);
 
-    const movies = await this.movieService.findAllMovie(title, status, bol);
+    const movies = await this.movieService.findAllMovie(title, status, isOnScreening, isTopMovie);
     return movies.map(movie => new MovieEntity(movie))
   }
 

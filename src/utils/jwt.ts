@@ -79,8 +79,6 @@ export class GenerateCustomIDService {
         return id;
     }
 
-
-
     // Get the latest custom ID from the database
     async getLatestCustomId(): Promise<string | null> {
         const lastTicket = await this.prisma.ticket.findFirst({
@@ -125,6 +123,34 @@ export class GenerateCustomIDService {
         const customId = `${currentPrefix}-${suffix}`;
 
         return customId;
+    }
+
+
+    // generate customId of Seat:
+    private alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private generatedIds: string[] = [];
+    private idNumber = 1;
+
+    generateSeatCustomId(): string {
+        const letterIndex = Math.floor((this.idNumber - 1) / 26);
+        const digit = (this.idNumber - 1) % 26 + 1;
+
+        let letter: string;
+        if (letterIndex === 0) {
+            letter = this.alphabet[digit - 1];
+        } else {
+            letter =
+                this.alphabet[letterIndex - 1] + this.alphabet[digit - 1];
+        }
+
+        this.generatedIds.push(letter + digit);
+        this.idNumber++;
+
+        return letter + digit;
+    }
+
+    getGeneratedIds(): string[] {
+        return this.generatedIds;
     }
 }
 
