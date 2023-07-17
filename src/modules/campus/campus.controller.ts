@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseFilters, UseInterceptors, BadRequestException, Req, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseFilters, UseInterceptors, BadRequestException, Req, UnauthorizedException, Query } from '@nestjs/common';
 import { CampusService } from './campus.service';
 import { CreateCampusDto } from './dto/create-campus.dto';
 import { UpdateCampusDto } from './dto/update-campus.dto';
@@ -43,8 +43,8 @@ export class CampusController {
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  async findOneCampus(@Param('id') id: string) {
-    const res = await this.campusService.findOneCampus(+id);
+  async findOneCampus(@Param('id') id: string, @Query('filter') filter?: string) {
+    const res = await this.campusService.findOneCampus(+id, filter);
     if (!res) {
       throw new BadRequestException()
     }
@@ -62,13 +62,6 @@ export class CampusController {
     const existingCampus = await this.campusService.findOneCampus(+id)
     if (!existingCampus) {
       throw new BadRequestException()
-    }
-
-    if (updateCampusDto.name && updateCampusDto.name !== existingCampus.name) {
-      const existingName = await this.campusService.findUniqueByName(updateCampusDto.name)
-      if (existingName) {
-        throw new BadRequestException('Name already exists. Please choose a different Name.')
-      }
     }
 
     const res = await this.campusService.updateCampus(+id, updateCampusDto);

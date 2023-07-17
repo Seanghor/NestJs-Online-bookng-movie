@@ -161,7 +161,7 @@ async function main() {
         console.table({ auditorium })
     }
 
-    // create 3 screening for movie1 at cenima1:
+    // create 3 screening for movie1 at cenima:
     for (let i = 1; i < 3; i++) {
         const screening = await prisma.screening.create({
             data: {
