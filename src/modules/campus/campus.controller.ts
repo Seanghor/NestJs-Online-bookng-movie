@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseFilters, UseInterceptors, BadRequestException, Req, UnauthorizedException, Query } from '@nestjs/common';
 import { CampusService } from './campus.service';
 import { CreateCampusDto } from './dto/create-campus.dto';
-import { UpdateCampusDto } from './dto/update-campus.dto';
+import {  CampusFilterStatusEnum, UpdateCampusDto } from './dto/update-campus.dto';
 import { HttpExceptionFilter } from 'src/model/http-exception.filter';
 import { Request } from 'express';
 
@@ -43,11 +43,15 @@ export class CampusController {
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  async findOneCampus(@Param('id') id: string, @Query('filter') filter?: string) {
+  async findOneCampus(@Param('id') id: string, @Query('filter') filter?: string,) {
+    if (filter && !Object.values(CampusFilterStatusEnum).includes(filter as unknown as CampusFilterStatusEnum)) {
+      throw new BadRequestException('Filter status not valid')
+    }
     const res = await this.campusService.findOneCampus(+id, filter);
     if (!res) {
       throw new BadRequestException()
     }
+
     return res
   }
 
@@ -81,6 +85,18 @@ export class CampusController {
       throw new BadRequestException()
     }
     const res = await this.campusService.remove(+id);
+    return res
+  }
+
+
+  @Get('/test/:id')
+  async testController(@Req() req: Request, @Param('id') id: string, @Query('date') date?: string) {
+    const user = req.payload
+    if (!['ADMIN', 'EMPLOYEE'].includes(user.role)) {
+      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    }
+
+    const res = await this.campusService.testFunction(+id, date);
     return res
   }
 }

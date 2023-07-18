@@ -43,7 +43,14 @@ export class MovieController {
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  async findAllMovies(@Query('title') title?: string, @Query('status') status?: MovieStatusEnum, @Query('onscreening') onscreening?: string, @Query('isTop') isTop?: string) {
+  async findAllMovies(
+    @Query('title') title?: string,
+    @Query('status') status?: MovieStatusEnum,
+    @Query('onscreening') onscreening?: string,
+    @Query('isTop') isTop?: string,
+    @Query('campusId') campusId?: string,
+    @Query('date') date?: string
+  ) {
     if (status && !Object.values(MovieStatusEnum).includes(status.toLocaleUpperCase() as MovieStatusEnum)) {
       throw new BadRequestException('Status not valid')
     }
@@ -54,7 +61,7 @@ export class MovieController {
     console.log("isOnScreening:", isOnScreening);
     console.log("isTop:", isTopMovie);
 
-    const movies = await this.movieService.findAllMovie(title, status, isOnScreening, isTopMovie);
+    const movies = await this.movieService.findAllMovie(title, status, isOnScreening, isTopMovie, +campusId, date);
     return movies.map(movie => new MovieEntity(movie))
   }
 
