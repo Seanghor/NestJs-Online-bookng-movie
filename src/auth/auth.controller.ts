@@ -1,5 +1,5 @@
 import { UserService } from './../modules/user/user.service';
-import { Controller, Post, Body, UseFilters, BadRequestException, UseInterceptors, ClassSerializerInterceptor, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, UseFilters, BadRequestException, UseInterceptors, ClassSerializerInterceptor, UnauthorizedException, Req, Patch } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtService } from 'src/utils/jwt';
 import { HttpExceptionFilter } from 'src/model/http-exception.filter';
@@ -8,6 +8,8 @@ import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { GenderEnum } from '@prisma/client';
 import { TokenPayload } from 'src/utils/dto/util.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { Request } from 'express';
+import { CreateMovieDto } from 'src/modules/movie/dto/create-movie.dto';
 
 
 @Controller()
@@ -110,6 +112,14 @@ export class AuthController {
     }
   }
 
+  // logout --> revoke token in db:
+  @UseFilters(HttpExceptionFilter)
+  @Post('/revokeToken')
+  async revokeTokenInDB(@Body() { userId }) {
+    console.log("revokeToken userId:", userId);
+    const res = await this.authService.revokeToken(+userId)
+    return res
+  }
 }
 
 

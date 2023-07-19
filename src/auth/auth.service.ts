@@ -47,10 +47,11 @@ export class AuthService {
   // This endpoint is only for demo purpose.
   // Move this logic where you need to revoke the tokens( for ex, on password reset)
   async revokeToken(userId: number) {
-    return await this.prisma.refreshToken.updateMany({
+    await this.prisma.refreshToken.updateMany({
       where: { userId },
       data: { revoked: true }
     })
+    return { message: "revoked" }
   }
 
   @UseFilters(HttpExceptionFilter)
@@ -67,7 +68,6 @@ export class AuthService {
     await this.revokeToken(existingUser.id)
 
     // start generate new accessToken & refreshToken
-    await this.revokeToken(existingUser.id)
     const jti = uuidv4()
     const { accessToken, refreshToken } = await this.jwtService.generateToken(existingUser, jti)
     const dataRefreshTokenToWhitelist = {
