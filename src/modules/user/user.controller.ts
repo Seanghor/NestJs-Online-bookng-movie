@@ -4,26 +4,26 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { GenderEnum, RoleEnum } from '@prisma/client';
 import { HttpExceptionFilter, } from 'src/model/http-exception.filter';
 import { BadRequestException, ClassSerializerInterceptor, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { UserEntity } from './entities/user.entity';
+import { UserEntity, UserProfileEntity } from './entities/user.entity';
 import { Request } from 'express';
 // import { IsAuthMiddleware } from 'src/middlewares/middlewares.service';
 
 
-@Controller('user')
+@Controller()
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   // create user
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post()
+  @Post('/user')
   async create(@Req() req: Request, @Body() createUserDto: CreateUserDto) {
     const user = req.payload
     if (user.role !== 'ADMIN') throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
     if (!createUserDto.name) throw new BadRequestException('Name is required');
     if (!createUserDto.email) throw new BadRequestException('Email is required');
-    if(!createUserDto.gender) throw new BadRequestException('Gender is required')
-    if(!Object.values(GenderEnum).includes(createUserDto.gender.toUpperCase() as GenderEnum)) throw new BadRequestException('Gender is not valid')
+    if (!createUserDto.gender) throw new BadRequestException('Gender is required')
+    if (!Object.values(GenderEnum).includes(createUserDto.gender.toUpperCase() as GenderEnum)) throw new BadRequestException('Gender is not valid')
     if (!createUserDto.role) throw new BadRequestException('Role is required');
     if (!Object.values(RoleEnum).includes(createUserDto.role.toUpperCase() as RoleEnum)) {
       throw new BadRequestException('Role is not valid');
@@ -41,7 +41,7 @@ export class UserController {
   // get all user
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get()
+  @Get('/user')
   async findAllUser(@Req() req: Request, @Query('role') role?: RoleEnum, @Query('gender') gender?: GenderEnum) {
     const userRole = req.payload?.role; // Access the role property from the payload object
     if (userRole !== 'ADMIN') {
@@ -60,13 +60,26 @@ export class UserController {
   // get user by id
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get(':id')
+  @Get('/user/:id')
   async findOne(@Param('id') id: number) {
     const res = await this.userService.findUserById(+id)
     if (!res) {
       throw new NotFoundException()
     }
     return new UserEntity(res)
+  }
+
+  @UseFilters(HttpExceptionFilter)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/profile')
+  async getProfile(@Req() req: Request) {
+    const payload = req.payload
+    const userId = payload.userId
+    const res = await this.userService.getProfile(+userId)
+    if (!res) {
+      throw new NotFoundException()
+    }
+    return new UserProfileEntity(res)
   }
 
 
@@ -76,7 +89,7 @@ export class UserController {
   @Delete(':id')
   async deleteOne(@Req() req: Request, @Param('id') id: number) {
     const userRole = req.payload.role
-    if(userRole !== 'ADMIN'){
+    if (userRole !== 'ADMIN') {
       throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
     }
     const existingUser = await this.userService.findUserById(+id)

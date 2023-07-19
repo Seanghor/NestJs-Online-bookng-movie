@@ -51,10 +51,10 @@ export class ScreeningController {
   @UseFilters(HttpExceptionFilter)
   @Get()
   async findAll(@Req() req: Request, @Query('movie') movie?: string, @Query('groupBy') groupBy?: string, @Query('date') date?: string) {
-    const user = req.payload
-    if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
-      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
-    }
+    // const user = req.payload
+    // if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
+    //   throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    // }
     if (groupBy && !['cinema', 'date'].includes(groupBy)) {
       throw new BadRequestException('status not found ')
     }
@@ -87,10 +87,10 @@ export class ScreeningController {
   @UseFilters(HttpExceptionFilter)
   @Get(':id')
   async findOne(@Req() req: Request, @Param('id') id: string) {
-    const user = req.payload
-    if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
-      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
-    }
+    // const user = req.payload
+    // if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
+    //   throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    // }
     const res = await this.screeningService.findOne(+id)
     if (!res) {
       throw new BadRequestException()

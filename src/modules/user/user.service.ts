@@ -25,6 +25,8 @@ export class UserService {
     const res = await this.prisma.user.create({
       data: { ...createUserDto },
     });
+
+
     return res;
   }
 
@@ -87,6 +89,13 @@ export class UserService {
       }
     })
     return user
+  }
+
+  async getProfile(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    return user;
   }
 
 }

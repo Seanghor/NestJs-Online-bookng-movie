@@ -17,7 +17,7 @@ export class MovieService {
   async findMovieByTitle(title: string) {
     const res = await this.prisma.movie.findUnique({
       where: {
-        title: title
+        title: title.toLocaleLowerCase()
       }
     })
     return res

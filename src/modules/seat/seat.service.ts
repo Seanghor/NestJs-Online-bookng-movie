@@ -121,9 +121,9 @@ export class SeatService {
       arrayWithRowsColumns.push(row);
     }
 
-    console.log("------------------ Start -------------------");
-    console.log(arrayWithRowsColumns);
-    console.log("-------------------- Finish ----------------");
+    // console.log("------------------ Start -------------------");
+    // console.log(arrayWithRowsColumns);
+    // console.log("-------------------- Finish ----------------");
 
     return arrayWithRowsColumns;
   }

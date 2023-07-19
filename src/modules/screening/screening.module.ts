@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ScreeningService } from './screening.service';
 import { ScreeningController } from './screening.controller';
 import { IsAuthService } from 'src/middlewares/middlewares.service';
@@ -14,6 +14,11 @@ export class ScreeningModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(IsAuthService)
-      .forRoutes(ScreeningController)
+      // .forRoutes(ScreeningController)
+      .exclude(
+        { path: 'screening', method: RequestMethod.GET },
+        { path: 'screening/:id', method: RequestMethod.GET }
+      )
+      .forRoutes(ScreeningController);
   }
 }

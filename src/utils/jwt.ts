@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { createHash } from 'crypto'
 import { TokenPayload } from './dto/util.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import { User } from '@prisma/client'
 import * as  bcrypt from 'bcrypt'
+import * as crypto from 'crypto';
+
 
 @Injectable()
 export class JwtService {
@@ -18,8 +20,8 @@ export class JwtService {
             role: user.role,
         } as unknown as TokenPayload
         return sign(payload, process.env.JWT_ACCESS_SECRET, {
-            expiresIn: process.env.JWT_EXPIRATION_TIME
-            // expiresIn: '120ms'
+            // expiresIn: process.env.JWT_EXPIRATION_TIME
+            expiresIn: '10000ms'
         })
     }
 
@@ -33,7 +35,13 @@ export class JwtService {
 
         return sign(payload, process.env.JWT_REFRESH_SECRET, {
             expiresIn: process.env.JWT_REFRESH_EXPIRATION_TIME,
+            // expiresIn: '10000ms'
         })
+    }
+
+    verifyRefreshToken(refreshToken) {
+        const payload = verify(refreshToken, process.env.JWT_REFRESH_SECRET) as TokenPayload
+        return payload
     }
 
     generateToken(user: User, jti: string) {
@@ -43,7 +51,7 @@ export class JwtService {
     }
 
     hashToken(token: string) {
-        return createHash('sha256').update(token).digest('hex')
+        return crypto.createHash('sha256').update(token).digest('hex')
     }
 
     async hashPassword(password: string): Promise<string> {
@@ -57,6 +65,7 @@ export class JwtService {
         const isMatch = await bcrypt.compare(password, hashPassword);
         return isMatch
     }
+
 
 }
 
