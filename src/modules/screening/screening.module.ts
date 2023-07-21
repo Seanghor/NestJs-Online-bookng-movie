@@ -5,10 +5,12 @@ import { IsAuthService } from 'src/middlewares/middlewares.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MovieService } from '../movie/movie.service';
 import { AuditoriumService } from '../auditorium/auditorium.service';
+import { GenerateCustomIDService } from 'src/utils/customId';
+
 
 @Module({
   controllers: [ScreeningController],
-  providers: [ScreeningService, PrismaService, MovieService, AuditoriumService]
+  providers: [ScreeningService, PrismaService, MovieService, AuditoriumService, GenerateCustomIDService]
 })
 export class ScreeningModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

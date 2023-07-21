@@ -14,7 +14,23 @@ const hashPassword = async (password: string) => {
     return hashedPassword;
 }
 
+
+
 async function main() {
+    // generate custom seatId:
+    function generateSeatId() {
+        const labels = [];
+        for (let letter = 65; letter <= 90; letter++) {
+            const letterChar = String.fromCharCode(letter);
+            for (let number = 1; number <= 12; number++) {
+                const paddedNumber = number.toString().padStart(2, '0');
+                labels.push(`${letterChar}-${paddedNumber}`);
+            }
+        }
+        return labels;
+    }
+    const seatId = generateSeatId()
+
     const admin = await prisma.user.createMany({
         data: [
             {
@@ -213,7 +229,8 @@ async function main() {
             // create seat for screen1
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening.id
                 }
@@ -222,7 +239,8 @@ async function main() {
             // create seat for screen2
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening2.id
                 }
@@ -231,7 +249,8 @@ async function main() {
             // create seat for screen3
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening3.id
                 }
@@ -290,7 +309,8 @@ async function main() {
             // create seat for screen1
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening.id
                 }
@@ -299,7 +319,8 @@ async function main() {
             // create seat for screen2
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening2.id
                 }
@@ -308,7 +329,8 @@ async function main() {
             // create seat for screen3
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening3.id
                 }
@@ -367,7 +389,8 @@ async function main() {
             // create seat for screen1
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening.id
                 }
@@ -376,7 +399,8 @@ async function main() {
             // create seat for screen2
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening2.id
                 }
@@ -385,7 +409,8 @@ async function main() {
             // create seat for screen3
             await prisma.seat.create({
                 data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+                    customId: seatId[j - 1],
                     auditoriumId: auditorium.id,
                     screeningId: screening3.id
                 }

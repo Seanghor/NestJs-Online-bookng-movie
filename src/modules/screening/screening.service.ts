@@ -7,10 +7,11 @@ import { CreateScreeningDto } from './dto/create-screening.dto';
 import { UpdateScreeningDto } from './dto/update-screening.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SeatStatusEnum } from '@prisma/client';
+import { GenerateCustomIDService } from 'src/utils/customId';
 
 @Injectable()
 export class ScreeningService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService, private readonly customeIdService: GenerateCustomIDService) { }
 
   async createScreening(createScreeningDto: CreateScreeningDto) {
     const screening = await this.prisma.screening.create({
@@ -23,11 +24,13 @@ export class ScreeningService {
       }
     })
 
+    const arrayCustomId = this.customeIdService.generateSeatCustomId()
     const maxSeat = auditorium.num_seats
     for (let j = 1; j <= maxSeat; j++) {
       await prisma.seat.create({
         data: {
-          customId: `A-${j}`,
+          // customId: `A-${j}`,
+          customId: arrayCustomId[j - 1],
           auditoriumId: auditorium.id,
           status: SeatStatusEnum.AVAILABLE,
           screeningId: screening.id

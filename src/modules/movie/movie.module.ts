@@ -5,10 +5,11 @@ import { ExcelController, MovieController } from './movie.controller';
 import { HttpExceptionFilter, UnauthorizedExceptionFilter } from 'src/model/http-exception.filter';
 import { IsAuthService } from 'src/middlewares/middlewares.service';
 import { ExcelService } from 'src/utils/upload-service';
+import { GenerateCustomIDService } from 'src/utils/customId';
 
 @Module({
   controllers: [MovieController, ExcelController],
-  providers: [MovieService, HttpExceptionFilter, UnauthorizedExceptionFilter, PrismaService, IsAuthService, ExcelService],
+  providers: [GenerateCustomIDService,MovieService, HttpExceptionFilter, UnauthorizedExceptionFilter, PrismaService, IsAuthService, ExcelService],
 })
 export class MovieModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
