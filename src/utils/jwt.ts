@@ -19,9 +19,11 @@ export class JwtService {
             email: user.email,
             role: user.role,
         } as unknown as TokenPayload
+        console.log("process.env.JWT_EXPIRATION_TIME:", process.env.JWT_EXPIRATION_TIME);
+
         return sign(payload, process.env.JWT_ACCESS_SECRET, {
-            // expiresIn: process.env.JWT_EXPIRATION_TIME
-            expiresIn: '10000ms'
+            expiresIn: process.env.JWT_EXPIRATION_TIME
+            // expiresIn: '10000ms'
         })
     }
 
@@ -32,6 +34,7 @@ export class JwtService {
             role: user.role,
             jti,
         } as unknown as TokenPayload
+        console.log("process.env.JWT_REFRESH_EXPIRATION_TIME:", process.env.JWT_REFRESH_EXPIRATION_TIME);
 
         return sign(payload, process.env.JWT_REFRESH_SECRET, {
             expiresIn: process.env.JWT_REFRESH_EXPIRATION_TIME,

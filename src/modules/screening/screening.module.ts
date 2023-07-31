@@ -6,11 +6,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { MovieService } from '../movie/movie.service';
 import { AuditoriumService } from '../auditorium/auditorium.service';
 import { GenerateCustomIDService } from 'src/utils/customId';
+import { CustomDateTimeService } from 'src/utils/dateTimeCustome.service';
+
+
 
 
 @Module({
   controllers: [ScreeningController],
-  providers: [ScreeningService, PrismaService, MovieService, AuditoriumService, GenerateCustomIDService]
+  providers: [ScreeningService, PrismaService, MovieService, AuditoriumService, GenerateCustomIDService, CustomDateTimeService]
 })
 export class ScreeningModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -53,7 +53,12 @@ export class CampusService {
               isAvailable: true,
               movie: true,
             },
+            orderBy: [
+              { "date_show": "asc" },
+              { "startTime": "asc" }
+            ]
           },
+
         },
       });
 
@@ -100,7 +105,11 @@ export class CampusService {
         where: {
           campusId: id,
           date_show: { gte: new Date(currentDate) }
-        }
+        },
+        orderBy: [
+          { "date_show": "asc" },
+          { "startTime": "asc" }
+        ]
       })
       return res
     }

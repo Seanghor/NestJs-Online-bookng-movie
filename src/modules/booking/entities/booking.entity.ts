@@ -15,4 +15,5 @@ export class BookingEntity implements Booking {
         Object.assign(this, partial);
         this.total = this.num * this.price_for_1
     }
+    purchaseId: number | null;
 }

@@ -108,25 +108,25 @@ export class SeatService {
       }
     });
 
-    const rows = 10;
-    const columns = 6;
+    const seatFormat = [4, 10, 4];
+    const totalSeats = seatFormat.reduce((sum, num) => sum + num, 0);
     const arrayWithRowsColumns = [];
 
-    for (let i = 0; i < rows; i++) {
+    let currentIndex = 0;
+
+    while (currentIndex < res.length) {
       const row = [];
-      for (let j = 0; j < columns; j++) {
-        const element = res[i * columns + j];
-        row.push(element);
+      for (const seatsInRow of seatFormat) {
+        const rowSeats = res.slice(currentIndex, currentIndex + seatsInRow);
+        currentIndex += seatsInRow;
+        row.push(rowSeats);
       }
       arrayWithRowsColumns.push(row);
     }
 
-    // console.log("------------------ Start -------------------");
-    // console.log(arrayWithRowsColumns);
-    // console.log("-------------------- Finish ----------------");
-
     return arrayWithRowsColumns;
   }
+
 
 
   async updateStatus(id: number, updateStatus: UpdateSeatStatusDto) {

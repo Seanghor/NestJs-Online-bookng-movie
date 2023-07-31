@@ -162,4 +162,25 @@ export class ScreeningController {
     if (!existingScreening) throw new BadRequestException()
     return await this.screeningService.remove(+id);
   }
+
+
+  @UseFilters(HttpExceptionFilter)
+  @Post('/multiple')
+  async createMultiple(@Req() req: Request, @Body()
+  data: {
+    movieId: number,
+    dateOfStartShow: string,
+    startTimes: string[]
+  }
+  ) {
+    const user = req.payload
+    if (!['ADMIN', 'EMPLOYEE'].includes(user.role)) {
+      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    }
+
+    const res = await this.screeningService.createMutlipleScreening(data)
+    // console.log("Create multiple screen ...", data.date_show);
+    return res
+
+  }
 }

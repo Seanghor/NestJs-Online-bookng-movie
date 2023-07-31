@@ -99,7 +99,7 @@ export class GenerateCustomIDService {
         const labels = [];
         for (let letter = 65; letter <= 90; letter++) {
             const letterChar = String.fromCharCode(letter);
-            for (let number = 1; number <= 12; number++) {
+            for (let number = 1; number <= 18; number++) {
                 const paddedNumber = number.toString().padStart(2, '0');
                 labels.push(`${letterChar}-${paddedNumber}`);
             }

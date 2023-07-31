@@ -1,4 +1,4 @@
-import {  Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -13,16 +13,18 @@ import { CampusModule } from './modules/campus/campus.module';
 import { ScreeningModule } from './modules/screening/screening.module';
 import { BookingModule } from './modules/booking/booking.module';
 import { SeatModule } from './modules/seat/seat.module';
+import { PurchaseModule } from './modules/purchase/purchase.module';
+
 
 
 
 
 @Module({
-  imports: [AuthModule, PrismaModule, MovieModule, UserModule, TicketModule, AuditoriumModule, MiddlewaresModule, CampusModule, ScreeningModule, BookingModule, SeatModule],
+  imports: [AuthModule, PrismaModule, MovieModule, UserModule, TicketModule, AuditoriumModule, MiddlewaresModule, CampusModule, ScreeningModule, BookingModule, SeatModule,PurchaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule  {
+export class AppModule {
   // configure(consumer: MiddlewareConsumer) {
   //   consumer.apply(isAuthMiddleware)
   //     .exclude('/login')
