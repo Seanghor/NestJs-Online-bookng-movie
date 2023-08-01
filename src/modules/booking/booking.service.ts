@@ -1,5 +1,4 @@
-import { prisma } from './../../../prisma/db';
-import { Seat } from './../seat/entities/seat.entity';
+
 import { TicketService } from './../ticket/ticket.service';
 import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
@@ -7,8 +6,8 @@ import { CreateBookingAndTicketDto, CreateBookingDto } from './dto/create-bookin
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { ScreeningService } from '../screening/screening.service';
 import { MovieService } from '../movie/movie.service';
-import { GenerateCustomIDService, } from 'src/utils/jwt';
 import { SeatStatusEnum } from '@prisma/client';
+import { GenerateCustomIDService } from 'src/utils/customId';
 
 @Injectable()
 export class BookingService {
@@ -111,7 +110,7 @@ export class BookingService {
         }
       })
     }
-    return res
+    return book
 
 
 

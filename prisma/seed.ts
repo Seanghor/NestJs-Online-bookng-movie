@@ -1,7 +1,7 @@
 import { MovieService } from './../src/modules/movie/movie.service';
 import { CreateAuditoriumDto } from './../src/modules/auditorium/dto/create-auditorium.dto';
 // prisma/seed.ts
-import { PrismaClient } from '@prisma/client';
+import { MovieStatusEnum, PrismaClient } from '@prisma/client';
 import { JwtService } from 'src/utils/jwt';
 import * as  bcrypt from 'bcrypt'
 const prisma = new PrismaClient();
@@ -14,7 +14,23 @@ const hashPassword = async (password: string) => {
     return hashedPassword;
 }
 
+
+
 async function main() {
+    // generate custom seatId:
+    function generateSeatId() {
+        const labels = [];
+        for (let letter = 65; letter <= 90; letter++) {
+            const letterChar = String.fromCharCode(letter);
+            for (let number = 1; number <= 18; number++) {
+                const paddedNumber = number.toString().padStart(2, '0');
+                labels.push(`${letterChar}-${paddedNumber}`);
+            }
+        }
+        return labels;
+    }
+    const seatId = generateSeatId()
+
     const admin = await prisma.user.createMany({
         data: [
             {
@@ -59,42 +75,73 @@ async function main() {
     });
     console.table({ admin })
 
+    // 3 address
+    const cenimaList = [
+        {
+            name: "MAJOR CINEPLEX AEON MALL PHNOM PENH",
+            address: "#132,Street Samdach Sothearos , Sangkat Tonle Bassac, Phnom Penh(Aeon1)",
+            phone: "099999999",
+            map: null
+        },
+        {
+            name: "MAJOR CINEPLEX AEON SEN SOK",
+            address: "Street 1003, Phnom Penh (Aeon Mall Sen Sok)",
+            phone: "09888888",
+            map: null
+        },
+        {
+            name: "MAJOR CINEPLEX AEON MEAN CHEY",
+            address: "Phum Prek Talong 3, Dangkat Chak Angre Krom, Khan Mean Chey, Phnom Penh",
+            phone: "09777777",
+            map: null
+        },
+    ]
+    for (let i = 0; i < cenimaList.length; i++) {
+        const cenima = await prisma.campus.create({
+            data: {
+                name: cenimaList[i].name,
+                address: cenimaList[i].address,
+                phone: cenimaList[i].phone,
+                map: cenimaList[i].map,
+            }
+        })
+        console.table({ cenima })
+    }
 
 
     // create 3 movie:
     const movieList = [
         {
-            title: "Three Kingdoms",
+            title: "The Nun 2",
             tmovieTypeype: "ACTION",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
-            description: "description",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20231311021333.jpg",
+            trailer: "https://www.youtube.com/embed/pA3KLOAb-I8?autoplay=1&mute=1",
             duration_min: 70,
             rating: 6.4,
             price: 7.5,
-            status: "COMING_SOON"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-20"
         },
         {
-            title: "Fast and Furious 7",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
+            title: "Blue Beetle",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20232714042700.jpg",
+            trailer: "https://www.youtube.com/embed/pA3KLOAb-I8?autoplay=1&mute=1",
             tmovieTypeype: "ACTION",
-            description: "description",
             duration_min: 70,
             rating: 6.4,
             price: 7.5,
-            status: "COMING_SOON"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-20"
         },
         {
-            title: "365days",
-            image: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/spidermannowayhome_onesheet_rating_extended_V1.jpg?itok=zCHneiV0",
-            trailer: "https://www.majorcineplex.com.kh/showtime?movies=HO00001213",
-            tmovieTypeype: "ACTION",
-            description: "description",
+            title: "Beau Is Afraid",
+            image: "https://www.majorcineplex.com.kh/load_file/movie/file_20234413104424.jpg",
+            trailer: "https://www.youtube.com/embed/jN4b3qcFEd4?autoplay=1&mute=1",
+            tmovieTypeype: "HORROR",
             duration_min: 120,
             rating: 6.4,
-            price: 7.5,
-            status: "COMING_SOON"
+            status: "NOW_SHOWING",
+            opening_date: "2023-09-23"
         },
     ]
 
@@ -105,11 +152,13 @@ async function main() {
                 title: movieList[i].title,
                 image: movieList[i].image,
                 trailer: movieList[i].trailer,
-                description: "description",
+                sub_title: 'EN/KH',
+                description: "A sequel to record-breaking Korean action film The Roundup.",
                 duration_min: 120,
                 rating: 6.4,
                 price: 7.5,
-                status: "COMING_SOON"
+                opening_date: '2023-09-20T00:00:00.000Z',
+                status: movieList[i].status as MovieStatusEnum
             }
         })
         console.table({ movie })
@@ -121,50 +170,255 @@ async function main() {
         const auditorium = await prisma.auditorium.create({
             data: {
                 name: `A-00${i}`,
-                num_seats: i % 2 == 0 ? 55 : 60,
-                isAvailable: true
+                num_seats: i % 2 == 0 ? 150 : 200,
+                isAvailable: true,
+                campusId: i <= 3 ? 1 : (4 <= i && i <= 6) ? 2 : 3
             }
         })
         console.table({ auditorium })
     }
 
-    // create screening:
-    for (let i = 1; i < 3; i++) {
-        const screening = await prisma.screening.create({
-            data: {
-                movieId: i,
-                auditoriumId: i,
-                date_show: "2023-06-30T00:00:00.000Z",
-                duration_min: 70,
-                startTime: "1970-01-01T13:10:00.000Z",
-                endTime: "1970-01-01T14:20:00.000Z",
-                status: "COMING_SOON",
-                isAvailable: true,
-            }
-        })
+    // create 3 screening for movie1 at cenima:
+    // for (let i = 1; i < 3; i++) {
+    //     const screening = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 1,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T13:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening2 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 1,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T14:30:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening3 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 1,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T16:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
 
-        const auditorium = await prisma.auditorium.findUnique({
-            where: {
-                id: screening.auditoriumId
-            }
-        })
-        const maxSeat = auditorium.num_seats
-        for (let j = 1; j <= maxSeat; j++) {
-            const seats = await prisma.seat.create({
-                data: {
-                    customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
-                    auditoriumId: auditorium.id,
-                    screeningId: screening.id
-                }
-            })
-        }
+    //     const auditorium = await prisma.auditorium.findUnique({
+    //         where: {
+    //             id: screening.auditoriumId
+    //         }
+    //     })
+    //     const maxSeat = auditorium.num_seats
+    //     for (let j = 1; j <= maxSeat; j++) {
+    //         // create seat for screen1
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening.id
+    //             }
+    //         })
 
-        // const seat = await prisma.seat.create({
+    //         // create seat for screen2
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening2.id
+    //             }
+    //         })
 
-        // })
-        console.table({ screening })
-    }
+    //         // create seat for screen3
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening3.id
+    //             }
+    //         })
+    //     }
+    //     console.table({ screening })
+    // }
+    // for (let i = 1; i < 3; i++) {
+    //     const screening = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 2,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T13:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening2 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 2,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T14:30:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening3 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 2,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T16:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
 
+    //     const auditorium = await prisma.auditorium.findUnique({
+    //         where: {
+    //             id: screening.auditoriumId
+    //         }
+    //     })
+    //     const maxSeat = auditorium.num_seats
+    //     for (let j = 1; j <= maxSeat; j++) {
+    //         // create seat for screen1
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening.id
+    //             }
+    //         })
+
+    //         // create seat for screen2
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening2.id
+    //             }
+    //         })
+
+    //         // create seat for screen3
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening3.id
+    //             }
+    //         })
+    //     }
+    //     console.table({ screening })
+    // }
+    // for (let i = 1; i < 3; i++) {
+    //     const screening = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 3,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T13:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening2 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 3,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T14:30:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+    //     const screening3 = await prisma.screening.create({
+    //         data: {
+    //             movieId: i,
+    //             auditoriumId: i,
+    //             campusId: 3,
+    //             date_show: "2023-07-30T00:00:00.000Z",
+    //             duration_min: 70,
+    //             startTime: "1970-01-01T16:10:00.000Z",
+    //             endTime: "1970-01-01T14:20:00.000Z",
+    //             status: "COMING_SOON",
+    //             isAvailable: true,
+    //         }
+    //     })
+
+    //     const auditorium = await prisma.auditorium.findUnique({
+    //         where: {
+    //             id: screening.auditoriumId
+    //         }
+    //     })
+    //     const maxSeat = auditorium.num_seats
+    //     for (let j = 1; j <= maxSeat; j++) {
+    //         // create seat for screen1
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening.id
+    //             }
+    //         })
+
+    //         // create seat for screen2
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening2.id
+    //             }
+    //         })
+
+    //         // create seat for screen3
+    //         await prisma.seat.create({
+    //             data: {
+    //                 // customId: i == 1 ? `A-${j}` : i == 2 ? `B-${j}` : `C-${j}`,
+    //                 customId: seatId[j - 1],
+    //                 auditoriumId: auditorium.id,
+    //                 screeningId: screening3.id
+    //             }
+    //         })
+    //     }
+    //     console.table({ screening })
+    // }
 
     return admin
 }

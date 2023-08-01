@@ -3,10 +3,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseFilters, B
 import { ScreeningService } from './screening.service';
 import { CreateScreeningDto } from './dto/create-screening.dto';
 import { UpdateScreeningDto } from './dto/update-screening.dto';
-import { title } from 'process';
 import { HttpExceptionFilter } from 'src/model/http-exception.filter';
 import { AuditoriumService } from '../auditorium/auditorium.service';
-import { Request, Response, NextFunction } from 'express';
+import { Request } from 'express';
 
 @Controller('screening')
 export class ScreeningController {
@@ -51,32 +50,47 @@ export class ScreeningController {
 
   @UseFilters(HttpExceptionFilter)
   @Get()
-  async findAll(@Req() req: Request, @Query('movie') movie?: string) {
-    const user = req.payload
-    if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
-      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
-    }
-    // if (title) {
-    //   const existingTitle = await this.movieService.findMovieByTitle(title)
-    //   if (!existingTitle) {
-    //     throw new BadRequestException('Invalid title')
-    //   }
+  async findAll(@Req() req: Request, @Query('movie') movie?: string, @Query('groupBy') groupBy?: string, @Query('date') date?: string) {
+    // const user = req.payload
+    // if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
+    //   throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
     // }
-    const res = await this.screeningService.findAll(movie)
+    if (groupBy && !['cinema', 'date'].includes(groupBy)) {
+      throw new BadRequestException('status not found ')
+    }
+
+    const res = await this.screeningService.findAll(movie, groupBy, date)
     if (movie && res.length === 0) {
       throw new BadRequestException()
     }
     return res
-
   }
 
+
   @UseFilters(HttpExceptionFilter)
-  @Get(':id')
-  async findOne(@Req() req: Request, @Param('id') id: string) {
+  @Get('/distinct')
+  async findDistinct(@Req() req: Request, @Query('movieId') movieId: string, @Query('date') date?: string) {
     const user = req.payload
     if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
       throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
     }
+
+    const dateFormat = `${date}T00:00:00.000Z`
+    console.log("Date input:", date);
+
+    const res = await this.screeningService.findDistinct(+movieId, date)
+
+    return res
+  }
+
+
+  @UseFilters(HttpExceptionFilter)
+  @Get(':id')
+  async findOne(@Req() req: Request, @Param('id') id: string) {
+    // const user = req.payload
+    // if (!['ADMIN', 'EMPLOYEE', 'USER'].includes(user.role)) {
+    //   throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    // }
     const res = await this.screeningService.findOne(+id)
     if (!res) {
       throw new BadRequestException()
@@ -147,5 +161,26 @@ export class ScreeningController {
     const existingScreening = await this.screeningService.findOne(+id)
     if (!existingScreening) throw new BadRequestException()
     return await this.screeningService.remove(+id);
+  }
+
+
+  @UseFilters(HttpExceptionFilter)
+  @Post('/multiple')
+  async createMultiple(@Req() req: Request, @Body()
+  data: {
+    movieId: number,
+    dateOfStartShow: string,
+    startTimes: string[]
+  }
+  ) {
+    const user = req.payload
+    if (!['ADMIN', 'EMPLOYEE'].includes(user.role)) {
+      throw new UnauthorizedException('🚫 User is Un-Authorized 🚫')
+    }
+
+    const res = await this.screeningService.createMutlipleScreening(data)
+    // console.log("Create multiple screen ...", data.date_show);
+    return res
+
   }
 }

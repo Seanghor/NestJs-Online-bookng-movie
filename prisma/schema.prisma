@@ -33,14 +33,15 @@ enum SeatStatusEnum {
 enum MovieStatusEnum {
   COMING_SOON
   NOW_SHOWING
-  TOP_MOVIE
 }
 
 enum MovieTypeEnum {
   ACTION
   COMEDY
-  HORRO
+  HORROR
   DRAMA
+  ANIMATION
+  ADVANTURE
 }
 
 enum ScreeningStatusEnum {
@@ -49,11 +50,21 @@ enum ScreeningStatusEnum {
   END_SHOWING
 }
 
+enum PaymentMethodEnum {
+  ABA
+  PAYPAL
+  ACLEDA
+  PHILIP
+}
+
 model Campus {
-  id      Int    @id @default(autoincrement())
-  name    String @unique
-  address String
-  phone   String
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  address     String
+  phone       String
+  map         String?
+  auditoriums Auditorium[]
+  Screening   Screening[]
 }
 
 model RefreshToken {
@@ -85,12 +96,16 @@ model Movie {
   title        String          @unique
   image        String?
   trailer      String?
+  sub_title    String?         @default("EN/KH")
   movieType    MovieTypeEnum   @default(ACTION)
   description  String?
   duration_min Int
+  opening_date DateTime?
   rating       Float
   price        Float?
   status       MovieStatusEnum
+  isTop        Boolean         @default(true)
+  isDisable    Boolean         @default(false)
   createdAt    DateTime        @default(now())
   updatedAt    DateTime?       @updatedAt
   Screening    Screening[]
@@ -105,12 +120,16 @@ model Auditorium {
   updatedAt   DateTime?   @updatedAt
   seats       Seat[]
   Screening   Screening[]
+  Campus      Campus?     @relation(fields: [campusId], references: [id])
+  campusId    Int?
 }
 
 model Screening {
   id           Int                 @id @default(autoincrement())
   movie        Movie               @relation(fields: [movieId], references: [id], onDelete: Cascade)
   auditorium   Auditorium?         @relation(fields: [auditoriumId], references: [id], onDelete: SetNull)
+  campus       Campus              @relation(fields: [campusId], references: [id])
+  campusId     Int
   movieId      Int
   auditoriumId Int?
   date_show    DateTime
@@ -153,8 +172,11 @@ model Booking {
   price_for_1 Int
   total       Int?
   tickets     Ticket[]
-  payStatus   Boolean   @default(false)
-  createAt    DateTime  @default(now())
+
+  purchase   Purchase? @relation(fields: [purchaseId], references: [id])
+  purchaseId Int?
+  payStatus  Boolean   @default(false)
+  createAt   DateTime  @default(now())
 }
 
 model Seat {
@@ -163,7 +185,18 @@ model Seat {
   Auditorium   Auditorium?    @relation(fields: [auditoriumId], references: [id])
   status       SeatStatusEnum @default(AVAILABLE)
   auditoriumId Int?
-  screening    Screening?     @relation(fields: [screeningId], references: [id])
+  screening    Screening?     @relation(fields: [screeningId], references: [id], onDelete: Cascade)
   Ticket       Ticket[]
   screeningId  Int
+}
+
+model Purchase {
+  id            Int               @id @default(autoincrement())
+  // bookId        Int[] // Array of booking's id
+  total         Float
+  paid          Boolean           @default(true)
+  phoneNumber   String
+  payMentMethod PaymentMethodEnum @default(PAYPAL)
+  remark        String?
+  bookings      Booking[]
 }

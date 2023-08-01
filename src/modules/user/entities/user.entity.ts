@@ -1,5 +1,4 @@
 import { GenderEnum, User, RoleEnum } from "@prisma/client";
-import { IsEnum } from "class-validator";
 import { Exclude } from "class-transformer";
 
 export class UserEntity implements User {
@@ -14,6 +13,28 @@ export class UserEntity implements User {
 
     @Exclude()
     password: string;
+
+    constructor(partial: Partial<UserEntity>) {
+        Object.assign(this, partial);
+    }
+}
+
+
+export class UserProfileEntity implements User {
+    id: number;
+    name: string;
+    email: string;
+    gender: GenderEnum;
+    role: RoleEnum;
+
+    @Exclude()
+    password: string;
+    @Exclude()
+    enable: boolean;
+    @Exclude()
+    createdAt: Date;
+    @Exclude()
+    updatedAt: Date;
 
     constructor(partial: Partial<UserEntity>) {
         Object.assign(this, partial);

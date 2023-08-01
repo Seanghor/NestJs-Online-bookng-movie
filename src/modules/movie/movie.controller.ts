@@ -1,17 +1,14 @@
-import { prisma } from './../../../prisma/db';
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, BadRequestException, UseFilters, ClassSerializerInterceptor, UseInterceptors, Query, Req, UnauthorizedException, HttpException, HttpStatus, ParseFilePipeBuilder, MaxFileSizeValidator, ParseFilePipe, FileTypeValidator, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, BadRequestException, UseFilters, ClassSerializerInterceptor, UseInterceptors, Query, Req, UnauthorizedException } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-import { HttpExceptionFilter, UnauthorizedExceptionFilter } from 'src/model/http-exception.filter';
-import { MovieEntity,  } from './entities/movie.entity';
+import { HttpExceptionFilter } from 'src/model/http-exception.filter';
+import { MovieEntity, } from './entities/movie.entity';
 import { MovieStatusEnum } from '@prisma/client';
-import { Request, Response, NextFunction } from 'express';
-import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ExcelService } from 'src/utils/upload-service';
-import readExcelFile from 'read-excel-file';
 import * as path from 'path';
-import * as xlsx from 'xlsx';
 import { diskStorage } from 'multer';
 
 @Controller('movie')
@@ -36,6 +33,8 @@ export class MovieController {
     if (!createMovieDto.rating) throw new BadRequestException('Rating is required')
     if (!createMovieDto.price) throw new BadRequestException('Price is required')
     if (!createMovieDto.status) throw new BadRequestException('Status is required')
+    if (!createMovieDto.opening_date) throw new BadRequestException('Opening date is required')
+    createMovieDto.opening_date = new Date(createMovieDto.opening_date)
 
     const movie = await this.movieService.createMovie(createMovieDto);
     return new MovieEntity(movie)
@@ -44,11 +43,25 @@ export class MovieController {
   @UseFilters(HttpExceptionFilter)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  async findAllMovies(@Query('title') title?: string, @Query('status') status?: MovieStatusEnum) {
+  async findAllMovies(
+    @Query('title') title?: string,
+    @Query('status') status?: MovieStatusEnum,
+    @Query('onscreening') onscreening?: string,
+    @Query('isTop') isTop?: string,
+    @Query('campusId') campusId?: string,
+    @Query('date') date?: string
+  ) {
     if (status && !Object.values(MovieStatusEnum).includes(status.toLocaleUpperCase() as MovieStatusEnum)) {
       throw new BadRequestException('Status not valid')
     }
-    const movies = await this.movieService.findAllMovie(title, status);
+
+    // convert string to Boolean
+    const isOnScreening = onscreening ? JSON.parse(onscreening) : false
+    const isTopMovie = isTop ? JSON.parse(isTop) : false
+    console.log("isOnScreening:", isOnScreening);
+    console.log("isTop:", isTopMovie);
+
+    const movies = await this.movieService.findAllMovie(title, status, isOnScreening, isTopMovie, +campusId, date);
     return movies.map(movie => new MovieEntity(movie))
   }
 
@@ -143,7 +156,7 @@ export class ExcelController {
   async importMovie(@UploadedFile() file: Express.Multer.File) {
     const moviesData = await this.excelService.readDataFromExcel(file)
     console.log(moviesData);
-    
+
     const res = await this.movieService.importMovie(moviesData)
     return res
   }

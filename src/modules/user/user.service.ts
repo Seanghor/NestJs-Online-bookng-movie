@@ -1,8 +1,7 @@
-import { BadRequestException, Injectable, UseFilters } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { GenderEnum, RoleEnum } from '@prisma/client';
-import { HttpExceptionFilter } from 'src/model/http-exception.filter';
 import { JwtService } from 'src/utils/jwt';
 
 @Injectable()
@@ -26,6 +25,8 @@ export class UserService {
     const res = await this.prisma.user.create({
       data: { ...createUserDto },
     });
+
+
     return res;
   }
 
@@ -88,6 +89,13 @@ export class UserService {
       }
     })
     return user
+  }
+
+  async getProfile(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    return user;
   }
 
 }

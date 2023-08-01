@@ -1,5 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException, UseFilters } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { BadRequestException, Injectable, NotFoundException, UseFilters } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRefreshTokenDto } from './dto/create-auth.dto';
 import { JwtService } from 'src/utils/jwt';
@@ -33,16 +32,26 @@ export class AuthService {
 
   // soft delete tokens after usage.
   async deleteRefreshTokenById(id: string) {
-    return await this.prisma.refreshToken.delete({
-      where: { id }
-    })
+    return await this.prisma.refreshToken.update(
+      {
+        where: {
+          id,
+        },
+        data: {
+          revoked: true,
+        },
+      }
+    )
   }
 
+  // This endpoint is only for demo purpose.
+  // Move this logic where you need to revoke the tokens( for ex, on password reset)
   async revokeToken(userId: number) {
-    return await this.prisma.refreshToken.updateMany({
+    await this.prisma.refreshToken.updateMany({
       where: { userId },
       data: { revoked: true }
     })
+    return { message: "revoked" }
   }
 
   @UseFilters(HttpExceptionFilter)
@@ -54,6 +63,11 @@ export class AuthService {
     const isMatchPassword = await this.jwtService.comparePassword(password, hashPassword)
     if (!isMatchPassword) { throw new BadRequestException('Invalid login credentials.') }
 
+
+    // this is to update all refreshToken (reVoke --> true) before it generate new accessToken & refreshToken
+    await this.revokeToken(existingUser.id)
+
+    // start generate new accessToken & refreshToken
     const jti = uuidv4()
     const { accessToken, refreshToken } = await this.jwtService.generateToken(existingUser, jti)
     const dataRefreshTokenToWhitelist = {
@@ -61,6 +75,8 @@ export class AuthService {
       refreshToken: refreshToken,
       userId: existingUser.id
     } as CreateRefreshTokenDto
+
+    // then add new one:
     await this.addRefreshTokenToWhitelist(dataRefreshTokenToWhitelist)
     return {
       accessToken,
