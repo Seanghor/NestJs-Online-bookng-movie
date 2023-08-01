@@ -1,42 +1,75 @@
 version: "3.9"
 name: cloud_computing_web_demo
 
-networks:
-  cloud_computing-network:
-    driver: bridge
-
-
+# networks:
+#   cloud_computing-network:
+#     driver: bridge
 
 services:
-  db:
-    image: postgres:14.3-alpine
-    container_name: postgres_cloud_computing_demo
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: cloud_computing_demo
-    expose:
-      - "5433"
-    ports:
-      - "5433:5433"
-    command: -p 5433
-    networks:
-      - cloud_computing-network
+  # db:
+  #   image: postgres:14.3-alpine
+  #   container_name: postgres_cloud_computing_demo
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: 123
+  #     POSTGRES_DB: cloud_computing_demo
+  #   expose:
+  #     - "5433"
+  #   ports:
+  #     - "5433:5433"
+  #   command: -p 5433
+  #   networks:
+  #     - cloud_computing-network
 
-  web:
-    image: ccp_web
-    container_name: ccp_web_demo
-    stdin_open: true
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    env_file: ./.env
-    networks:
-      - cloud_computing-network
+  # web:
+  #   image: ccp_web
+  #   container_name: ccp_web_demo
+  #   stdin_open: true
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   env_file: ./.env
+  #   networks:
+  #     - cloud_computing-network
+  #   ports:
+  #     - "5000:${PORT}"
+  #   command: yarn start
+  #   depends_on:
+  #     - db
+
+  backend:
+    build: ./
+    container_name: mv_ticket_nestJs_api
+    environment:
+      - PORT = 4000
+      - DATABASE_URL_LOCAL=postgresql://postgres_db:hor123@localhost:5432/cloud_demo
+      - JWT_ACCESS_SECRET=demo_secret_168
+      - JWT_REFRESH_SECRET=demo_secret_168
+      - JWT_EXPIRATION_TIME=1d
+      - JWT_REFRESH_EXPIRATION_TIME=12h
+      - SUPER_ADMIN_EMAIL=demo@dev.com
+      - saltOrRounds=12
+      - NODE_ENV=production
     ports:
-      - "5000:${PORT}"
-    command: yarn start
+      - "4000:4000"
     depends_on:
-      - db
+      - database
+    networks:
+      - nestjs_mv_ticket-network
+
+
+  database:
+    image: postgres:14.3-alpine
+    container_name: postgres_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - './postgres-backup:/data/db'
+    depends_on:
+      - nestjs_mv_ticket-network
+
+networks:
+  nestjs_mv_ticket-network:
+    driver: bridge
