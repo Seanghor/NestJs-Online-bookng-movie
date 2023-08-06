@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AuditoriumService } from './auditorium.service';
 import { AuditoriumController } from './auditorium.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -13,6 +13,10 @@ export class AuditoriumModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(IsAuthService)
-      .forRoutes(AuditoriumController)
+      // .forRoutes(AuditoriumController)
+      .exclude(
+        { path: 'auditorium', method: RequestMethod.GET },
+      )
+      .forRoutes(AuditoriumController);
   }
 }

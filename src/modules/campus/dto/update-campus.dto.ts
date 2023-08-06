@@ -11,5 +11,13 @@ export class UpdateCampusDto extends PartialType(CreateCampusDto) {
 
     @IsNotEmpty()
     phone: string
-
 }
+
+// export class CampusFilterStatusEnum {
+//     date: any
+//     movie
+// }
+export enum CampusFilterStatusEnum {
+    date = 'date',
+    movie = 'movie',
+  }

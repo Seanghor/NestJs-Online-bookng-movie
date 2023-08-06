@@ -14,6 +14,9 @@ export class CreateMovieDto {
     @IsEmpty()
     trailer: string | null;
 
+    @IsEmpty()
+    sub_title: string | null;
+
     @IsNotEmpty()
     movieType: MovieTypeEnum;
 
@@ -25,6 +28,12 @@ export class CreateMovieDto {
 
     @IsNotEmpty()
     price: number
+
+    @IsNotEmpty()
+    opening_date: string | Date | null
+
+    isTop: boolean
+    isDisable: boolean
 
     @IsNotEmpty()
     @IsEnum(MovieStatusEnum)
@@ -45,6 +54,9 @@ export class ImportMovieDto {
 
     @IsEmpty()
     trailer: string | null;
+
+    @IsEmpty()
+    sub_title: string;
 
     @IsNotEmpty()
     movieType: MovieTypeEnum;

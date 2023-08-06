@@ -1,8 +1,8 @@
 version: "3.9"
-name: cloud_computing_web_demo
+name: online_booking_movie
 
 networks:
-  cloud_computing-network:
+  movie_booking-network:
     driver: bridge
 
 
@@ -10,23 +10,23 @@ networks:
 services:
   db:
     image: postgres:14.3-alpine
-    container_name: postgres_cloud_computing_demo
+    container_name: postgres_db_mv_booking
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: cloud_computing_demo
+      POSTGRES_PASSWORD: hor9999
+      POSTGRES_DB: cloud_mv_booking_db
     expose:
       - "5433"
     ports:
       - "5433:5433"
     command: -p 5433
     networks:
-      - cloud_computing-network
+      - movie_booking-network
 
   web:
-    image: ccp_web
-    container_name: ccp_web_demo
+    image: nestjs_online_movie_booking_web
+    container_name: nestjs_online_movie_booking_image
     stdin_open: true
     build:
       context: .
@@ -34,7 +34,7 @@ services:
     restart: always
     env_file: ./.env
     networks:
-      - cloud_computing-network
+      - movie_booking-network
     ports:
       - "5000:${PORT}"
     command: yarn start

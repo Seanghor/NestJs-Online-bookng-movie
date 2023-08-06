@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { CampusService } from './campus.service';
 import { CampusController } from './campus.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,6 +12,11 @@ export class CampusModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(IsAuthService)
-      .forRoutes(CampusController)
+      // .forRoutes(CampusController)
+      .exclude(
+        { path: 'campus', method: RequestMethod.GET },
+        { path: 'campus/:id', method: RequestMethod.GET },
+      )
+      .forRoutes(CampusController);
   }
 }
