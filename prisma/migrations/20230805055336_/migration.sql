@@ -165,6 +165,18 @@ CREATE TABLE "Purchase" (
     CONSTRAINT "Purchase_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "feedBack" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "firstname" TEXT NOT NULL,
+    "lastname" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "feedback" TEXT,
+
+    CONSTRAINT "feedBack_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Campus_name_key" ON "Campus"("name");
 
@@ -221,3 +233,6 @@ ALTER TABLE "Seat" ADD CONSTRAINT "Seat_auditoriumId_fkey" FOREIGN KEY ("auditor
 
 -- AddForeignKey
 ALTER TABLE "Seat" ADD CONSTRAINT "Seat_screeningId_fkey" FOREIGN KEY ("screeningId") REFERENCES "Screening"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "feedBack" ADD CONSTRAINT "feedBack_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

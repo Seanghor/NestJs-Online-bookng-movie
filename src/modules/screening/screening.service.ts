@@ -74,7 +74,7 @@ export class ScreeningService {
 
     // get all group by date
     else if (movie && !isNaN(Number(movie)) && groupBy === "date") {
-      console.log("Just group by date");
+      console.log("Just group by date", movie);
 
       const res = await this.prisma.screening.findMany({
         where: {
@@ -85,12 +85,12 @@ export class ScreeningService {
           { "startTime": "asc" }
         ],
 
-
-
         include: {
           auditorium: true
         }
       })
+
+      
       const result = [];
       let currentDate = null;
       let currentGroup = null;
@@ -109,7 +109,7 @@ export class ScreeningService {
 
         currentGroup.push(item);
       }
-
+    
       return result
     }
 

@@ -9,7 +9,7 @@ import { GenerateCustomIDService } from 'src/utils/customId';
 
 @Module({
   controllers: [MovieController, ExcelController],
-  providers: [GenerateCustomIDService,MovieService, HttpExceptionFilter, UnauthorizedExceptionFilter, PrismaService, IsAuthService, ExcelService],
+  providers: [GenerateCustomIDService,MovieService,PrismaService, HttpExceptionFilter, UnauthorizedExceptionFilter, IsAuthService, ExcelService],
 })
 export class MovieModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
