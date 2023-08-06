@@ -78,20 +78,20 @@ async function main() {
     // 3 address
     const cenimaList = [
         {
-            name: "MAJOR CINEPLEX AEON MALL PHNOM PENH",
-            address: "#132,Street Samdach Sothearos , Sangkat Tonle Bassac, Phnom Penh(Aeon1)",
+            name: "AVATAR CINEPLEX Premium Sihanouk",
+            address: "#132,Street Samdach Sothearos , Sangkat Ou Mouy, Sihanouk Ville(Prince Mall)",
             phone: "099999999",
             map: null
         },
         {
-            name: "MAJOR CINEPLEX AEON SEN SOK",
+            name: "AVATAR CINEPLEX AEON SEN SOK",
             address: "Street 1003, Phnom Penh (Aeon Mall Sen Sok)",
             phone: "09888888",
             map: null
         },
         {
-            name: "MAJOR CINEPLEX AEON MEAN CHEY",
-            address: "Phum Prek Talong 3, Dangkat Chak Angre Krom, Khan Mean Chey, Phnom Penh",
+            name: "AVATAR CINEPLEX Kirirom",
+            address: "Phum Prek Talong 3, Dangkat Chak Angre Krom, Khan Mean Chey, Kirirom",
             phone: "09777777",
             map: null
         },
@@ -169,8 +169,9 @@ async function main() {
     for (let i = 1; i <= 9; i++) {
         const auditorium = await prisma.auditorium.create({
             data: {
-                name: `A-00${i}`,
-                num_seats: i % 2 == 0 ? 150 : 200,
+                name: `AV-0${i}`,
+                // num_seats: i % 2 == 0 ? 150 : 200,
+                num_seats: 180,
                 isAvailable: true,
                 campusId: i <= 3 ? 1 : (4 <= i && i <= 6) ? 2 : 3
             }

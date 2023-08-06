@@ -63,6 +63,7 @@ export class ScreeningController {
     if (movie && res.length === 0) {
       throw new BadRequestException()
     }
+
     return res
   }
 

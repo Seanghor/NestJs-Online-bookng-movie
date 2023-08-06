@@ -14,13 +14,14 @@ import { ScreeningModule } from './modules/screening/screening.module';
 import { BookingModule } from './modules/booking/booking.module';
 import { SeatModule } from './modules/seat/seat.module';
 import { PurchaseModule } from './modules/purchase/purchase.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
 
 
 
 
 
 @Module({
-  imports: [AuthModule, PrismaModule, MovieModule, UserModule, TicketModule, AuditoriumModule, MiddlewaresModule, CampusModule, ScreeningModule, BookingModule, SeatModule,PurchaseModule],
+  imports: [AuthModule, FeedbackModule, PrismaModule, MovieModule, UserModule, TicketModule, AuditoriumModule, MiddlewaresModule, CampusModule, ScreeningModule, BookingModule, SeatModule, PurchaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

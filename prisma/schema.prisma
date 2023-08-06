@@ -89,6 +89,7 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime?      @updatedAt
   RefreshToken RefreshToken[]
+  feedBack     feedBack[]
 }
 
 model Movie {
@@ -199,4 +200,14 @@ model Purchase {
   payMentMethod PaymentMethodEnum @default(PAYPAL)
   remark        String?
   bookings      Booking[]
+}
+
+model feedBack {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  firstname String
+  lastname  String
+  email     String
+  feedback  String?
 }
