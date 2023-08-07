@@ -22,9 +22,9 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', '..', 'client'),
+    // }),
     AuthModule, FeedbackModule, PrismaModule, MovieModule, UserModule, TicketModule, AuditoriumModule, MiddlewaresModule, CampusModule, ScreeningModule, BookingModule, SeatModule, PurchaseModule],
   controllers: [AppController],
   providers: [AppService],
