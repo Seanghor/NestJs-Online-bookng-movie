@@ -78,7 +78,7 @@ async function main() {
     // 3 address
     const cenimaList = [
         {
-            name: "AVATAR CINEPLEX Premium Sihanouk",
+            name: "AVATAR CINEPLEX PREMIUM SIIHANOUK(PRINCE MALL)",
             address: "#132,Street Samdach Sothearos , Sangkat Ou Mouy, Sihanouk Ville(Prince Mall)",
             phone: "099999999",
             map: null
@@ -90,7 +90,7 @@ async function main() {
             map: null
         },
         {
-            name: "AVATAR CINEPLEX Kirirom",
+            name: "AVATAR CINEPLEX KIRIROM",
             address: "Phum Prek Talong 3, Dangkat Chak Angre Krom, Khan Mean Chey, Kirirom",
             phone: "09777777",
             map: null
