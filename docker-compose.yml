@@ -34,7 +34,7 @@ services:
     networks:
       - movie_booking-network
     ports:
-      - "5000:${PORT}"
+      - "${PORT}:${PORT}"
     command: yarn start
     depends_on:
       - db
