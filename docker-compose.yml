@@ -13,10 +13,10 @@ services:
       POSTGRES_PASSWORD: hor9999
       POSTGRES_DB: cloud_mv_booking_db
     expose:
-      - "5433"
+      - "5434"
     ports:
-      - "5433:5433"
-    command: -p 5433
+      - "5434:5434"
+    command: -p 5434
     volumes:
       - ./backup/backup.sql:/docker-entrypoint-initdb.d/backup.sql
       - ./script/restore.sh:/docker-entrypoint-initdb.d/restore.sh
