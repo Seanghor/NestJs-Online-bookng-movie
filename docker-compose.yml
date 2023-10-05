@@ -18,7 +18,7 @@ services:
       - "5434:5434"
     command: -p 5434
     volumes:
-      - ./backup/backup.sql:/docker-entrypoint-initdb.d/backup.sql
+      - ./backup/backup_plain-v3.sql:/docker-entrypoint-initdb.d/backup.sql
       - ./script/restore.sh:/docker-entrypoint-initdb.d/restore.sh
     networks:
       - movie_booking-network
