@@ -17,6 +17,9 @@ services:
     ports:
       - "5433:5433"
     command: -p 5433
+    volumes:
+      - ./backup/backup.sql:/docker-entrypoint-initdb.d/backup.sql
+      - ./script/restore.sh:/docker-entrypoint-initdb.d/restore.sh
     networks:
       - movie_booking-network
   web:
