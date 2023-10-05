@@ -11,7 +11,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "prisma migrate dev && yarn prisma generate && prisma db push && nest start ",
+    "start2": "prisma migrate dev && yarn prisma generate && prisma db push && nest start ",
+    "start": "prisma generate && nest start ",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
