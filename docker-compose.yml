@@ -1,12 +1,12 @@
 version: "3.9"
-name: rest-api-online_booking_movie
+name: nestjs_online_movie_booking-api
 networks:
   movie_booking-network:
     driver: bridge
 services:
   db:
     image: postgres:14.3-alpine
-    container_name: postgres_db_mv_booking
+    container_name: omv-db_container
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -23,8 +23,8 @@ services:
     networks:
       - movie_booking-network
   web:
-    image: nestjs_online_movie_booking_web
-    container_name: nestjs_online_movie_booking_image
+    image: nestjs-online-movie-booking_api
+    container_name: nestjs-online-movie-booking_container
     stdin_open: true
     build:
       context: .
