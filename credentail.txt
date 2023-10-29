@@ -1,0 +1,13 @@
+admin:
+    email: admin@avatar.com
+    password: adm1n12345
+
+    email: haiseanghor20@kit.edu.kh
+    password: password
+
+    email: rithkimsour20@kit.edu.kh
+    password: password
+
+user:
+    email: user@avatar.com
+    password: user12345

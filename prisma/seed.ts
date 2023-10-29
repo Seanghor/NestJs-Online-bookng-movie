@@ -43,34 +43,28 @@ async function main() {
             },
             {
                 name: "Rith Kimsour",
-                email: "rithkimsour@gmail.com",
+                email: "rithkimsour20@kit.edu.kh",
                 password: await hashPassword("password"),
-                role: "EMPLOYEE",
+                role: "ADMIN",
                 enable: true,
                 gender: "FEMALE"
             },
             {
-                name: "Amm Cheachamreoun",
-                email: "ammcheachamreoun@gmail.com",
-                password: await hashPassword("password"),
-                role: "USER",
+                name: "Avartar Admin",
+                email: "admin@avatar.com",
+                password: await hashPassword("adm1n12345"),
+                role: "ADMIN",
                 enable: true,
                 gender: "MALE"
-            }, {
-                name: "Bou Leapheng",
-                email: "bouleapheng@gmail.com",
-                password: await hashPassword("password"),
-                role: "USER",
-                enable: true,
-                gender: "MALE"
-            }, {
-                name: "Queen Rafaela",
-                email: "rafaela@gmail.com",
-                password: await hashPassword("password"),
-                role: "USER",
-                enable: true,
-                gender: "FEMALE"
             },
+            {
+                name: "Avartar User",
+                email: "user@avatar.com",
+                password: await hashPassword("user12345"),
+                role: "USER",
+                enable: true,
+                gender: "MALE"
+            }
         ]
     });
     console.table({ admin })

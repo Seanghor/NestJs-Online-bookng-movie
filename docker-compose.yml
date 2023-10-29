@@ -9,7 +9,7 @@ services:
     container_name: omv-db_container
     restart: always
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: moviedb
       POSTGRES_PASSWORD: hor9999
       POSTGRES_DB: cloud_mv_booking_db
     expose:
