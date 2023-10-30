@@ -5,7 +5,7 @@
 -- Dumped from database version 14.3
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-10-31 02:02:45
+-- Started on 2023-10-31 03:50:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 5 (class 2615 OID 2200)
+-- TOC entry 5 (class 2615 OID 26901)
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -38,7 +38,7 @@ COMMENT ON SCHEMA public IS '';
 
 
 --
--- TOC entry 843 (class 1247 OID 16386)
+-- TOC entry 843 (class 1247 OID 26920)
 -- Name: GenderEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -51,7 +51,7 @@ CREATE TYPE public."GenderEnum" AS ENUM (
 ALTER TYPE public."GenderEnum" OWNER TO postgres;
 
 --
--- TOC entry 846 (class 1247 OID 16392)
+-- TOC entry 846 (class 1247 OID 26934)
 -- Name: MovieStatusEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -64,7 +64,7 @@ CREATE TYPE public."MovieStatusEnum" AS ENUM (
 ALTER TYPE public."MovieStatusEnum" OWNER TO postgres;
 
 --
--- TOC entry 849 (class 1247 OID 16398)
+-- TOC entry 849 (class 1247 OID 26940)
 -- Name: MovieTypeEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -81,7 +81,7 @@ CREATE TYPE public."MovieTypeEnum" AS ENUM (
 ALTER TYPE public."MovieTypeEnum" OWNER TO postgres;
 
 --
--- TOC entry 852 (class 1247 OID 16412)
+-- TOC entry 852 (class 1247 OID 26962)
 -- Name: PaymentMethodEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -96,7 +96,7 @@ CREATE TYPE public."PaymentMethodEnum" AS ENUM (
 ALTER TYPE public."PaymentMethodEnum" OWNER TO postgres;
 
 --
--- TOC entry 855 (class 1247 OID 16422)
+-- TOC entry 855 (class 1247 OID 26912)
 -- Name: RoleEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -110,7 +110,7 @@ CREATE TYPE public."RoleEnum" AS ENUM (
 ALTER TYPE public."RoleEnum" OWNER TO postgres;
 
 --
--- TOC entry 858 (class 1247 OID 16430)
+-- TOC entry 858 (class 1247 OID 26954)
 -- Name: ScreeningStatusEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -124,7 +124,7 @@ CREATE TYPE public."ScreeningStatusEnum" AS ENUM (
 ALTER TYPE public."ScreeningStatusEnum" OWNER TO postgres;
 
 --
--- TOC entry 861 (class 1247 OID 16438)
+-- TOC entry 861 (class 1247 OID 26926)
 -- Name: SeatStatusEnum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -142,7 +142,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 209 (class 1259 OID 16445)
+-- TOC entry 218 (class 1259 OID 27016)
 -- Name: Auditorium; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -160,7 +160,7 @@ CREATE TABLE public."Auditorium" (
 ALTER TABLE public."Auditorium" OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16452)
+-- TOC entry 217 (class 1259 OID 27015)
 -- Name: Auditorium_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -177,7 +177,7 @@ ALTER TABLE public."Auditorium_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3499 (class 0 OID 0)
--- Dependencies: 210
+-- Dependencies: 217
 -- Name: Auditorium_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -185,7 +185,7 @@ ALTER SEQUENCE public."Auditorium_id_seq" OWNED BY public."Auditorium".id;
 
 
 --
--- TOC entry 211 (class 1259 OID 16453)
+-- TOC entry 224 (class 1259 OID 27048)
 -- Name: Booking; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -206,7 +206,7 @@ CREATE TABLE public."Booking" (
 ALTER TABLE public."Booking" OWNER TO postgres;
 
 --
--- TOC entry 212 (class 1259 OID 16460)
+-- TOC entry 223 (class 1259 OID 27047)
 -- Name: Booking_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -223,7 +223,7 @@ ALTER TABLE public."Booking_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3500 (class 0 OID 0)
--- Dependencies: 212
+-- Dependencies: 223
 -- Name: Booking_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -231,7 +231,7 @@ ALTER SEQUENCE public."Booking_id_seq" OWNED BY public."Booking".id;
 
 
 --
--- TOC entry 213 (class 1259 OID 16461)
+-- TOC entry 211 (class 1259 OID 26972)
 -- Name: Campus; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -247,7 +247,7 @@ CREATE TABLE public."Campus" (
 ALTER TABLE public."Campus" OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 16466)
+-- TOC entry 210 (class 1259 OID 26971)
 -- Name: Campus_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -264,7 +264,7 @@ ALTER TABLE public."Campus_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3501 (class 0 OID 0)
--- Dependencies: 214
+-- Dependencies: 210
 -- Name: Campus_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -272,7 +272,7 @@ ALTER SEQUENCE public."Campus_id_seq" OWNED BY public."Campus".id;
 
 
 --
--- TOC entry 215 (class 1259 OID 16467)
+-- TOC entry 216 (class 1259 OID 27002)
 -- Name: Movie; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -299,7 +299,7 @@ CREATE TABLE public."Movie" (
 ALTER TABLE public."Movie" OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 16477)
+-- TOC entry 215 (class 1259 OID 27001)
 -- Name: Movie_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -316,7 +316,7 @@ ALTER TABLE public."Movie_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3502 (class 0 OID 0)
--- Dependencies: 216
+-- Dependencies: 215
 -- Name: Movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -324,7 +324,7 @@ ALTER SEQUENCE public."Movie_id_seq" OWNED BY public."Movie".id;
 
 
 --
--- TOC entry 217 (class 1259 OID 16478)
+-- TOC entry 228 (class 1259 OID 27069)
 -- Name: Purchase; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -341,7 +341,7 @@ CREATE TABLE public."Purchase" (
 ALTER TABLE public."Purchase" OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 16485)
+-- TOC entry 227 (class 1259 OID 27068)
 -- Name: Purchase_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -358,7 +358,7 @@ ALTER TABLE public."Purchase_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3503 (class 0 OID 0)
--- Dependencies: 218
+-- Dependencies: 227
 -- Name: Purchase_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -366,7 +366,7 @@ ALTER SEQUENCE public."Purchase_id_seq" OWNED BY public."Purchase".id;
 
 
 --
--- TOC entry 219 (class 1259 OID 16486)
+-- TOC entry 212 (class 1259 OID 26980)
 -- Name: RefreshToken; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -383,7 +383,7 @@ CREATE TABLE public."RefreshToken" (
 ALTER TABLE public."RefreshToken" OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16493)
+-- TOC entry 220 (class 1259 OID 27027)
 -- Name: Screening; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -406,7 +406,7 @@ CREATE TABLE public."Screening" (
 ALTER TABLE public."Screening" OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 16499)
+-- TOC entry 219 (class 1259 OID 27026)
 -- Name: Screening_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -423,7 +423,7 @@ ALTER TABLE public."Screening_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3504 (class 0 OID 0)
--- Dependencies: 221
+-- Dependencies: 219
 -- Name: Screening_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -431,7 +431,7 @@ ALTER SEQUENCE public."Screening_id_seq" OWNED BY public."Screening".id;
 
 
 --
--- TOC entry 222 (class 1259 OID 16500)
+-- TOC entry 226 (class 1259 OID 27059)
 -- Name: Seat; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -447,7 +447,7 @@ CREATE TABLE public."Seat" (
 ALTER TABLE public."Seat" OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 16506)
+-- TOC entry 225 (class 1259 OID 27058)
 -- Name: Seat_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -464,7 +464,7 @@ ALTER TABLE public."Seat_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3505 (class 0 OID 0)
--- Dependencies: 223
+-- Dependencies: 225
 -- Name: Seat_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -472,7 +472,7 @@ ALTER SEQUENCE public."Seat_id_seq" OWNED BY public."Seat".id;
 
 
 --
--- TOC entry 224 (class 1259 OID 16507)
+-- TOC entry 222 (class 1259 OID 27037)
 -- Name: Ticket; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -493,7 +493,7 @@ CREATE TABLE public."Ticket" (
 ALTER TABLE public."Ticket" OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 16514)
+-- TOC entry 221 (class 1259 OID 27036)
 -- Name: Ticket_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -510,7 +510,7 @@ ALTER TABLE public."Ticket_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3506 (class 0 OID 0)
--- Dependencies: 225
+-- Dependencies: 221
 -- Name: Ticket_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -518,7 +518,7 @@ ALTER SEQUENCE public."Ticket_id_seq" OWNED BY public."Ticket".id;
 
 
 --
--- TOC entry 226 (class 1259 OID 16515)
+-- TOC entry 214 (class 1259 OID 26990)
 -- Name: User; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -538,7 +538,7 @@ CREATE TABLE public."User" (
 ALTER TABLE public."User" OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 16523)
+-- TOC entry 213 (class 1259 OID 26989)
 -- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -555,7 +555,7 @@ ALTER TABLE public."User_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3507 (class 0 OID 0)
--- Dependencies: 227
+-- Dependencies: 213
 -- Name: User_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -563,7 +563,7 @@ ALTER SEQUENCE public."User_id_seq" OWNED BY public."User".id;
 
 
 --
--- TOC entry 228 (class 1259 OID 16524)
+-- TOC entry 209 (class 1259 OID 26902)
 -- Name: _prisma_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -582,7 +582,7 @@ CREATE TABLE public._prisma_migrations (
 ALTER TABLE public._prisma_migrations OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 16531)
+-- TOC entry 230 (class 1259 OID 27080)
 -- Name: feedBack; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -599,7 +599,7 @@ CREATE TABLE public."feedBack" (
 ALTER TABLE public."feedBack" OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 16536)
+-- TOC entry 229 (class 1259 OID 27079)
 -- Name: feedBack_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -616,7 +616,7 @@ ALTER TABLE public."feedBack_id_seq" OWNER TO postgres;
 
 --
 -- TOC entry 3508 (class 0 OID 0)
--- Dependencies: 230
+-- Dependencies: 229
 -- Name: feedBack_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -624,7 +624,7 @@ ALTER SEQUENCE public."feedBack_id_seq" OWNED BY public."feedBack".id;
 
 
 --
--- TOC entry 3253 (class 2604 OID 16647)
+-- TOC entry 3268 (class 2604 OID 27175)
 -- Name: Auditorium id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -632,7 +632,7 @@ ALTER TABLE ONLY public."Auditorium" ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3256 (class 2604 OID 16648)
+-- TOC entry 3278 (class 2604 OID 27176)
 -- Name: Booking id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -640,7 +640,7 @@ ALTER TABLE ONLY public."Booking" ALTER COLUMN id SET DEFAULT nextval('public."B
 
 
 --
--- TOC entry 3259 (class 2604 OID 16649)
+-- TOC entry 3255 (class 2604 OID 27177)
 -- Name: Campus id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -648,7 +648,7 @@ ALTER TABLE ONLY public."Campus" ALTER COLUMN id SET DEFAULT nextval('public."Ca
 
 
 --
--- TOC entry 3260 (class 2604 OID 16650)
+-- TOC entry 3262 (class 2604 OID 27178)
 -- Name: Movie id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -656,7 +656,7 @@ ALTER TABLE ONLY public."Movie" ALTER COLUMN id SET DEFAULT nextval('public."Mov
 
 
 --
--- TOC entry 3266 (class 2604 OID 16651)
+-- TOC entry 3283 (class 2604 OID 27179)
 -- Name: Purchase id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -664,7 +664,7 @@ ALTER TABLE ONLY public."Purchase" ALTER COLUMN id SET DEFAULT nextval('public."
 
 
 --
--- TOC entry 3271 (class 2604 OID 16652)
+-- TOC entry 3271 (class 2604 OID 27180)
 -- Name: Screening id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -672,7 +672,7 @@ ALTER TABLE ONLY public."Screening" ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3275 (class 2604 OID 16653)
+-- TOC entry 3281 (class 2604 OID 27181)
 -- Name: Seat id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -680,7 +680,7 @@ ALTER TABLE ONLY public."Seat" ALTER COLUMN id SET DEFAULT nextval('public."Seat
 
 
 --
--- TOC entry 3277 (class 2604 OID 16654)
+-- TOC entry 3275 (class 2604 OID 27182)
 -- Name: Ticket id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -688,7 +688,7 @@ ALTER TABLE ONLY public."Ticket" ALTER COLUMN id SET DEFAULT nextval('public."Ti
 
 
 --
--- TOC entry 3280 (class 2604 OID 16655)
+-- TOC entry 3258 (class 2604 OID 27183)
 -- Name: User id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -696,7 +696,7 @@ ALTER TABLE ONLY public."User" ALTER COLUMN id SET DEFAULT nextval('public."User
 
 
 --
--- TOC entry 3286 (class 2604 OID 16656)
+-- TOC entry 3286 (class 2604 OID 27184)
 -- Name: feedBack id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -704,8 +704,8 @@ ALTER TABLE ONLY public."feedBack" ALTER COLUMN id SET DEFAULT nextval('public."
 
 
 --
--- TOC entry 3470 (class 0 OID 16445)
--- Dependencies: 209
+-- TOC entry 3479 (class 0 OID 27016)
+-- Dependencies: 218
 -- Data for Name: Auditorium; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -723,8 +723,8 @@ COPY public."Auditorium" (id, name, num_seats, "isAvailable", "createdAt", "upda
 
 
 --
--- TOC entry 3472 (class 0 OID 16453)
--- Dependencies: 211
+-- TOC entry 3485 (class 0 OID 27048)
+-- Dependencies: 224
 -- Data for Name: Booking; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -733,8 +733,8 @@ COPY public."Booking" (id, "customId", "userId", "screeningId", num, price_for_1
 
 
 --
--- TOC entry 3474 (class 0 OID 16461)
--- Dependencies: 213
+-- TOC entry 3472 (class 0 OID 26972)
+-- Dependencies: 211
 -- Data for Name: Campus; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -746,8 +746,8 @@ COPY public."Campus" (id, name, address, phone, map) FROM stdin;
 
 
 --
--- TOC entry 3476 (class 0 OID 16467)
--- Dependencies: 215
+-- TOC entry 3477 (class 0 OID 27002)
+-- Dependencies: 216
 -- Data for Name: Movie; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -787,8 +787,8 @@ COPY public."Movie" (id, title, image, trailer, sub_title, "movieType", descript
 
 
 --
--- TOC entry 3478 (class 0 OID 16478)
--- Dependencies: 217
+-- TOC entry 3489 (class 0 OID 27069)
+-- Dependencies: 228
 -- Data for Name: Purchase; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -813,8 +813,8 @@ COPY public."Purchase" (id, total, paid, "phoneNumber", "payMentMethod", remark)
 
 
 --
--- TOC entry 3480 (class 0 OID 16486)
--- Dependencies: 219
+-- TOC entry 3473 (class 0 OID 26980)
+-- Dependencies: 212
 -- Data for Name: RefreshToken; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -832,7 +832,7 @@ ac5ff181-add6-4415-9005-3fdb0879e473	86b751bf2523bf4aa6d5dffb20dfb6beefde02890f1
 
 
 --
--- TOC entry 3481 (class 0 OID 16493)
+-- TOC entry 3481 (class 0 OID 27027)
 -- Dependencies: 220
 -- Data for Name: Screening; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1147,8 +1147,8 @@ COPY public."Screening" (id, "campusId", "movieId", "auditoriumId", date_show, d
 
 
 --
--- TOC entry 3483 (class 0 OID 16500)
--- Dependencies: 222
+-- TOC entry 3487 (class 0 OID 27059)
+-- Dependencies: 226
 -- Data for Name: Seat; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -56057,8 +56057,8 @@ COPY public."Seat" (id, "customId", status, "auditoriumId", "screeningId") FROM 
 
 
 --
--- TOC entry 3485 (class 0 OID 16507)
--- Dependencies: 224
+-- TOC entry 3483 (class 0 OID 27037)
+-- Dependencies: 222
 -- Data for Name: Ticket; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -56067,8 +56067,8 @@ COPY public."Ticket" (id, "customId", "screeningId", "seatId", price, active, "p
 
 
 --
--- TOC entry 3487 (class 0 OID 16515)
--- Dependencies: 226
+-- TOC entry 3475 (class 0 OID 26990)
+-- Dependencies: 214
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -56081,19 +56081,20 @@ COPY public."User" (id, email, name, gender, password, role, enable, "createdAt"
 
 
 --
--- TOC entry 3489 (class 0 OID 16524)
--- Dependencies: 228
+-- TOC entry 3470 (class 0 OID 26902)
+-- Dependencies: 209
 -- Data for Name: _prisma_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public._prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) FROM stdin;
+a1ecd480-bba7-43f6-99b4-fc4bb3fc91bc	be2d0d40e1f244b33b33f73d686a89afdee1f02a0931749e3ca1c0de633e551b	2023-10-30 20:45:58.065805+00	20230805055336_	\N	\N	2023-10-30 20:45:57.947537+00	1
 e243193d-b8df-4b35-a4c1-8f7e7c155321	be2d0d40e1f244b33b33f73d686a89afdee1f02a0931749e3ca1c0de633e551b	2023-08-07 16:26:28.333557+00	20230805055336_	\N	\N	2023-08-07 16:26:28.250384+00	1
 \.
 
 
 --
--- TOC entry 3490 (class 0 OID 16531)
--- Dependencies: 229
+-- TOC entry 3491 (class 0 OID 27080)
+-- Dependencies: 230
 -- Data for Name: feedBack; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -56103,7 +56104,7 @@ COPY public."feedBack" (id, "userId", firstname, lastname, email, feedback) FROM
 
 --
 -- TOC entry 3509 (class 0 OID 0)
--- Dependencies: 210
+-- Dependencies: 217
 -- Name: Auditorium_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56112,7 +56113,7 @@ SELECT pg_catalog.setval('public."Auditorium_id_seq"', 9, true);
 
 --
 -- TOC entry 3510 (class 0 OID 0)
--- Dependencies: 212
+-- Dependencies: 223
 -- Name: Booking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56121,7 +56122,7 @@ SELECT pg_catalog.setval('public."Booking_id_seq"', 40, true);
 
 --
 -- TOC entry 3511 (class 0 OID 0)
--- Dependencies: 214
+-- Dependencies: 210
 -- Name: Campus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56130,7 +56131,7 @@ SELECT pg_catalog.setval('public."Campus_id_seq"', 3, true);
 
 --
 -- TOC entry 3512 (class 0 OID 0)
--- Dependencies: 216
+-- Dependencies: 215
 -- Name: Movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56139,7 +56140,7 @@ SELECT pg_catalog.setval('public."Movie_id_seq"', 32, true);
 
 --
 -- TOC entry 3513 (class 0 OID 0)
--- Dependencies: 218
+-- Dependencies: 227
 -- Name: Purchase_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56148,7 +56149,7 @@ SELECT pg_catalog.setval('public."Purchase_id_seq"', 16, true);
 
 --
 -- TOC entry 3514 (class 0 OID 0)
--- Dependencies: 221
+-- Dependencies: 219
 -- Name: Screening_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56157,7 +56158,7 @@ SELECT pg_catalog.setval('public."Screening_id_seq"', 306, true);
 
 --
 -- TOC entry 3515 (class 0 OID 0)
--- Dependencies: 223
+-- Dependencies: 225
 -- Name: Seat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56166,7 +56167,7 @@ SELECT pg_catalog.setval('public."Seat_id_seq"', 54900, true);
 
 --
 -- TOC entry 3516 (class 0 OID 0)
--- Dependencies: 225
+-- Dependencies: 221
 -- Name: Ticket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56175,7 +56176,7 @@ SELECT pg_catalog.setval('public."Ticket_id_seq"', 1553, true);
 
 --
 -- TOC entry 3517 (class 0 OID 0)
--- Dependencies: 227
+-- Dependencies: 213
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56184,7 +56185,7 @@ SELECT pg_catalog.setval('public."User_id_seq"', 20, true);
 
 --
 -- TOC entry 3518 (class 0 OID 0)
--- Dependencies: 230
+-- Dependencies: 229
 -- Name: feedBack_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -56192,7 +56193,7 @@ SELECT pg_catalog.setval('public."feedBack_id_seq"', 1, false);
 
 
 --
--- TOC entry 3289 (class 2606 OID 16548)
+-- TOC entry 3303 (class 2606 OID 27025)
 -- Name: Auditorium Auditorium_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56201,7 +56202,7 @@ ALTER TABLE ONLY public."Auditorium"
 
 
 --
--- TOC entry 3291 (class 2606 OID 16550)
+-- TOC entry 3310 (class 2606 OID 27057)
 -- Name: Booking Booking_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56210,7 +56211,7 @@ ALTER TABLE ONLY public."Booking"
 
 
 --
--- TOC entry 3294 (class 2606 OID 16552)
+-- TOC entry 3291 (class 2606 OID 26979)
 -- Name: Campus Campus_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56219,7 +56220,7 @@ ALTER TABLE ONLY public."Campus"
 
 
 --
--- TOC entry 3296 (class 2606 OID 16554)
+-- TOC entry 3299 (class 2606 OID 27014)
 -- Name: Movie Movie_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56228,7 +56229,7 @@ ALTER TABLE ONLY public."Movie"
 
 
 --
--- TOC entry 3299 (class 2606 OID 16556)
+-- TOC entry 3314 (class 2606 OID 27078)
 -- Name: Purchase Purchase_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56237,7 +56238,7 @@ ALTER TABLE ONLY public."Purchase"
 
 
 --
--- TOC entry 3302 (class 2606 OID 16558)
+-- TOC entry 3294 (class 2606 OID 26988)
 -- Name: RefreshToken RefreshToken_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56246,7 +56247,7 @@ ALTER TABLE ONLY public."RefreshToken"
 
 
 --
--- TOC entry 3304 (class 2606 OID 16560)
+-- TOC entry 3305 (class 2606 OID 27035)
 -- Name: Screening Screening_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56255,7 +56256,7 @@ ALTER TABLE ONLY public."Screening"
 
 
 --
--- TOC entry 3306 (class 2606 OID 16562)
+-- TOC entry 3312 (class 2606 OID 27067)
 -- Name: Seat Seat_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56264,7 +56265,7 @@ ALTER TABLE ONLY public."Seat"
 
 
 --
--- TOC entry 3309 (class 2606 OID 16564)
+-- TOC entry 3308 (class 2606 OID 27046)
 -- Name: Ticket Ticket_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56273,7 +56274,7 @@ ALTER TABLE ONLY public."Ticket"
 
 
 --
--- TOC entry 3312 (class 2606 OID 16566)
+-- TOC entry 3297 (class 2606 OID 27000)
 -- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56282,7 +56283,7 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 3314 (class 2606 OID 16568)
+-- TOC entry 3288 (class 2606 OID 26910)
 -- Name: _prisma_migrations _prisma_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56291,7 +56292,7 @@ ALTER TABLE ONLY public._prisma_migrations
 
 
 --
--- TOC entry 3316 (class 2606 OID 16570)
+-- TOC entry 3316 (class 2606 OID 27087)
 -- Name: feedBack feedBack_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56300,7 +56301,7 @@ ALTER TABLE ONLY public."feedBack"
 
 
 --
--- TOC entry 3287 (class 1259 OID 16571)
+-- TOC entry 3301 (class 1259 OID 27092)
 -- Name: Auditorium_name_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56308,7 +56309,7 @@ CREATE UNIQUE INDEX "Auditorium_name_key" ON public."Auditorium" USING btree (na
 
 
 --
--- TOC entry 3292 (class 1259 OID 16572)
+-- TOC entry 3289 (class 1259 OID 27088)
 -- Name: Campus_name_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56316,7 +56317,7 @@ CREATE UNIQUE INDEX "Campus_name_key" ON public."Campus" USING btree (name);
 
 
 --
--- TOC entry 3297 (class 1259 OID 16573)
+-- TOC entry 3300 (class 1259 OID 27091)
 -- Name: Movie_title_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56324,7 +56325,7 @@ CREATE UNIQUE INDEX "Movie_title_key" ON public."Movie" USING btree (title);
 
 
 --
--- TOC entry 3300 (class 1259 OID 16574)
+-- TOC entry 3292 (class 1259 OID 27089)
 -- Name: RefreshToken_id_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56332,7 +56333,7 @@ CREATE UNIQUE INDEX "RefreshToken_id_key" ON public."RefreshToken" USING btree (
 
 
 --
--- TOC entry 3307 (class 1259 OID 16575)
+-- TOC entry 3306 (class 1259 OID 27093)
 -- Name: Ticket_customId_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56340,7 +56341,7 @@ CREATE UNIQUE INDEX "Ticket_customId_key" ON public."Ticket" USING btree ("custo
 
 
 --
--- TOC entry 3310 (class 1259 OID 16576)
+-- TOC entry 3295 (class 1259 OID 27090)
 -- Name: User_email_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -56348,7 +56349,7 @@ CREATE UNIQUE INDEX "User_email_key" ON public."User" USING btree (email);
 
 
 --
--- TOC entry 3317 (class 2606 OID 16577)
+-- TOC entry 3318 (class 2606 OID 27099)
 -- Name: Auditorium Auditorium_campusId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56357,7 +56358,7 @@ ALTER TABLE ONLY public."Auditorium"
 
 
 --
--- TOC entry 3318 (class 2606 OID 16582)
+-- TOC entry 3325 (class 2606 OID 27144)
 -- Name: Booking Booking_purchaseId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56366,7 +56367,7 @@ ALTER TABLE ONLY public."Booking"
 
 
 --
--- TOC entry 3319 (class 2606 OID 16587)
+-- TOC entry 3326 (class 2606 OID 27139)
 -- Name: Booking Booking_screeningId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56375,7 +56376,7 @@ ALTER TABLE ONLY public."Booking"
 
 
 --
--- TOC entry 3320 (class 2606 OID 16592)
+-- TOC entry 3327 (class 2606 OID 27134)
 -- Name: Booking Booking_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56384,7 +56385,7 @@ ALTER TABLE ONLY public."Booking"
 
 
 --
--- TOC entry 3321 (class 2606 OID 16597)
+-- TOC entry 3317 (class 2606 OID 27094)
 -- Name: RefreshToken RefreshToken_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56393,7 +56394,7 @@ ALTER TABLE ONLY public."RefreshToken"
 
 
 --
--- TOC entry 3322 (class 2606 OID 16602)
+-- TOC entry 3319 (class 2606 OID 27109)
 -- Name: Screening Screening_auditoriumId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56402,7 +56403,7 @@ ALTER TABLE ONLY public."Screening"
 
 
 --
--- TOC entry 3323 (class 2606 OID 16607)
+-- TOC entry 3320 (class 2606 OID 27114)
 -- Name: Screening Screening_campusId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56411,7 +56412,7 @@ ALTER TABLE ONLY public."Screening"
 
 
 --
--- TOC entry 3324 (class 2606 OID 16612)
+-- TOC entry 3321 (class 2606 OID 27104)
 -- Name: Screening Screening_movieId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56420,7 +56421,7 @@ ALTER TABLE ONLY public."Screening"
 
 
 --
--- TOC entry 3325 (class 2606 OID 16617)
+-- TOC entry 3328 (class 2606 OID 27149)
 -- Name: Seat Seat_auditoriumId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56429,7 +56430,7 @@ ALTER TABLE ONLY public."Seat"
 
 
 --
--- TOC entry 3326 (class 2606 OID 16622)
+-- TOC entry 3329 (class 2606 OID 27154)
 -- Name: Seat Seat_screeningId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56438,7 +56439,7 @@ ALTER TABLE ONLY public."Seat"
 
 
 --
--- TOC entry 3327 (class 2606 OID 16627)
+-- TOC entry 3322 (class 2606 OID 27129)
 -- Name: Ticket Ticket_bookingId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56447,7 +56448,7 @@ ALTER TABLE ONLY public."Ticket"
 
 
 --
--- TOC entry 3328 (class 2606 OID 16632)
+-- TOC entry 3323 (class 2606 OID 27119)
 -- Name: Ticket Ticket_screeningId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56456,7 +56457,7 @@ ALTER TABLE ONLY public."Ticket"
 
 
 --
--- TOC entry 3329 (class 2606 OID 16637)
+-- TOC entry 3324 (class 2606 OID 27124)
 -- Name: Ticket Ticket_seatId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56465,7 +56466,7 @@ ALTER TABLE ONLY public."Ticket"
 
 
 --
--- TOC entry 3330 (class 2606 OID 16642)
+-- TOC entry 3330 (class 2606 OID 27159)
 -- Name: feedBack feedBack_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -56483,7 +56484,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT CREATE ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2023-10-31 02:02:46
+-- Completed on 2023-10-31 03:50:24
 
 --
 -- PostgreSQL database dump complete
