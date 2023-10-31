@@ -1,8 +1,6 @@
 version: "3.9"
 name: nestjs_online_movie_booking-api
-networks:
-  movie_booking-network:
-    driver: bridge
+
 services:
   db:
     image: postgres:14.3-alpine
@@ -38,3 +36,6 @@ services:
     command: yarn start
     depends_on:
       - db
+networks:
+  movie_booking-network:
+    driver: bridge
