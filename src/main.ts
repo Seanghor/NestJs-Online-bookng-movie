@@ -8,6 +8,21 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cors());
+  app.use((req, res, next) => {
+    if (req.url === '/') {
+      res.json({ status: 'API is running on /api' });
+      console.log(`API is running on /api`);
+    }
+    next();
+  });
+  app.use((req, res, next) => {
+    if (req.url === '/api/docs') {
+      res.json({ status: `the API documentation is available on /api-docs` });
+      console.log(`the API documentation is available on /api-docs`);
+    }
+    next();
+  });
+
 
 
   // Set the global prefix to 'api'
