@@ -1,0 +1,40 @@
+version: "3.9"
+name: nestjs_online_movie_booking-api
+networks:
+  movie_booking-network:
+    driver: bridge
+services:
+  db:
+    image: postgres:14.3-alpine
+    container_name: omv-db_container
+    restart: always
+    environment:
+      POSTGRES_USER: pg-movie
+      POSTGRES_PASSWORD: hor9999
+      POSTGRES_DB: movie_db
+    expose:
+      - "5434"
+    ports:
+      - "5434:5434"
+    command: -p 5434
+    volumes:
+      - ./backup/backup_plain.sql:/docker-entrypoint-initdb.d/backup.sql
+      - ./script/restore.sh:/docker-entrypoint-initdb.d/restore.sh
+    networks:
+      - movie_booking-network
+  web:
+    image: nestjs-online-movie-booking_api
+    container_name: nestjs-online-movie-booking_container
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file: ./.env
+    networks:
+      - movie_booking-network
+    ports:
+      - "${PORT}:${PORT}"
+    command: yarn start
+    depends_on:
+      - db

@@ -1,5 +1,5 @@
 FROM node:16.14.0
-WORKDIR /ccp
+WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma/
 COPY .env ./.env
