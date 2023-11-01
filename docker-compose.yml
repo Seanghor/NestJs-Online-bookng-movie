@@ -1,10 +1,10 @@
 version: "3.9"
-name: avatar-backend
+name: avatar-backend  # this name no need to match with service name
 networks:
   movie_booking-network:
     driver: bridge
 services:
-  db:
+  db:  # name of service:
     image: postgres:14.3-alpine
     container_name: avatar-db_container
     restart: always
@@ -22,8 +22,8 @@ services:
       - ./script/restore.sh:/docker-entrypoint-initdb.d/restore.sh
     networks:
       - movie_booking-network
-  web:
-    image: avatar-api
+  avatar-api:  # name of service:
+    image: avatar-api  # this name no need to match with service name
     container_name: avatar-api_container
     stdin_open: true
     build:
