@@ -6,7 +6,7 @@ networks:
 services:
   avatar-db:  # name of service:
     image: postgres:14.3-alpine
-    container_name: avatar-db_container
+    container_name: avatar-db
     restart: always
     environment:
       POSTGRES_USER: pg-movie
@@ -23,8 +23,8 @@ services:
     networks:
       - movie_booking-network
   avatar-api:  # name of service:
-    image: avatar-api  # this name no need to match with service name
-    container_name: avatar-api_container
+    image: avatar-api_iamge  # this name no need to match with service name
+    container_name: avatar-api
     stdin_open: true
     build:
       context: .
