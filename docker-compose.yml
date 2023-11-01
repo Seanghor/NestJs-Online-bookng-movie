@@ -4,7 +4,7 @@ networks:
   movie_booking-network:
     driver: bridge
 services:
-  db:  # name of service:
+  avatar-db:  # name of service:
     image: postgres:14.3-alpine
     container_name: avatar-db_container
     restart: always
@@ -37,4 +37,4 @@ services:
       - "${PORT}:${PORT}"
     command: yarn start
     depends_on:
-      - db
+      - avatar-db
