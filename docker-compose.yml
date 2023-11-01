@@ -1,12 +1,12 @@
 version: "3.9"
-name: avatar-api
+name: avatar-backend
 networks:
   movie_booking-network:
     driver: bridge
 services:
   db:
     image: postgres:14.3-alpine
-    container_name: omv-db_container
+    container_name: avatar-db_container
     restart: always
     environment:
       POSTGRES_USER: pg-movie
@@ -23,8 +23,8 @@ services:
     networks:
       - movie_booking-network
   web:
-    image: nestjs-online-movie-booking_api
-    container_name: nestjs-online-movie-booking_container
+    image: avatar-api
+    container_name: avatar-api_container
     stdin_open: true
     build:
       context: .
